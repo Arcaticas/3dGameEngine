@@ -32,7 +32,7 @@ namespace eae6320
 
 		// Initialize / Clean Up
 		cScopeGuard( tFunction&& i_function ) noexcept;
-		~cScopeGuard();
+		~cScopeGuard() noexcept;
 
 		// Data
 		//-----
@@ -71,7 +71,7 @@ namespace eae6320
 
 		// Initialize / Clean Up
 		cScopeGuard_mutable( tFunction&& i_function ) noexcept;
-		~cScopeGuard_mutable();
+		~cScopeGuard_mutable() noexcept;
 
 		// Data
 		//-----
