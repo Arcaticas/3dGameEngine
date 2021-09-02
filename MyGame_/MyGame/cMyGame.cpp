@@ -4,6 +4,7 @@
 #include "cMyGame.h"
 
 #include <Engine/Asserts/Asserts.h>
+#include <Engine/Logging/Logging.h>
 #include <Engine/UserInput/UserInput.h>
 
 // Inherited Implementation
@@ -18,6 +19,7 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 	if ( UserInput::IsKeyPressed( UserInput::KeyCodes::Escape ) )
 	{
 		// Exit the application
+		Logging::OutputMessage("Escape was pressed");
 		const auto result = Exit( EXIT_SUCCESS );
 		EAE6320_ASSERT( result );
 	}

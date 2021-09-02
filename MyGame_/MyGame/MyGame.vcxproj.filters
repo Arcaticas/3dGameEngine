@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="cMyGame.cpp" />
+    <ClCompile Include="EntryPoint.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cMyGame.h" />
+    <ClInclude Include="Resource Files\Resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource Files\targetver.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource Files\vsDefault_large.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource Files\vsDefault_small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource Files\eaeAlien.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource Files\eaeGamePad.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{d70d5465-923b-4c04-85a0-96c2ed9b95ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{e7f9a9ce-9656-4836-b672-5375c7a9bb47}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource Files\MyGame.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Content\Shaders\Fragment\flasher.shader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

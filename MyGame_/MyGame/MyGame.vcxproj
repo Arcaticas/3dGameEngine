@@ -56,6 +56,9 @@
       <Project>{193bb096-cd2c-48e8-8a28-99ecc2d019ad}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Content\Shaders\Fragment\flasher.shader" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{be818602-7cbd-469a-b778-bbb2157f5ebb}</ProjectGuid>
