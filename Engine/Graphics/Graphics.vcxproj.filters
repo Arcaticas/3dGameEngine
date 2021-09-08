@@ -46,6 +46,9 @@
       <Filter>Direct3D</Filter>
     </ClCompile>
     <ClCompile Include="Geometry.cpp" />
+    <ClCompile Include="OpenGL\Geometry.gl.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windows\ExternalLibraries.win.h">
