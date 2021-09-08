@@ -18,9 +18,6 @@
     <ClCompile Include="OpenGL\cVertexFormat.gl.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGL\Graphics.gl.cpp">
-      <Filter>OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="OpenGL\sContext.gl.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
@@ -46,6 +43,9 @@
       <Filter>Direct3D</Filter>
     </ClCompile>
     <ClCompile Include="Geometry.cpp" />
+    <ClCompile Include="OpenGL\Graphics.gl.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="OpenGL\Geometry.gl.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>

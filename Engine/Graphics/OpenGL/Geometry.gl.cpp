@@ -184,6 +184,7 @@ eae6320::cResult eae6320::Graphics::Geometry::Initialize()
 			return result;
 		}
 	}
+	return result;
 }
 
 eae6320::cResult eae6320::Graphics::Geometry::CleanUp()

@@ -1,7 +1,7 @@
 #include "../Geometry.h"
 
 #include "Includes.h"
-#include "../cVertexFormat.h"
+
 #include "../sContext.h"
 #include "../VertexFormats.h"
 
@@ -12,7 +12,7 @@
 
 eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 {
-	auto result = eae6320::Results::Success;
+	auto result = Results::Success;
 
 	auto* const direct3dDevice = eae6320::Graphics::sContext::g_context.direct3dDevice;
 	EAE6320_ASSERT(direct3dDevice);
@@ -144,6 +144,7 @@ eae6320::cResult eae6320::Graphics::Geometry::Initialize()
 			return result;
 		}
 	}
+	return result;
 }
 
 eae6320::cResult eae6320::Graphics::Geometry::CleanUp()

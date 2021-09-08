@@ -6,10 +6,13 @@
 
 #include <cstdint>
 #include <Engine/Results/Results.h>
+#include "../cVertexFormat.h"
+#include "../cConstantBuffer.h"
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
 #include <Engine/Windows/Includes.h>
 #endif
+
 
 
 namespace eae6320
@@ -18,21 +21,20 @@ namespace eae6320
 	{
 		class Geometry
 		{
-		
-			
 
-#if defined( EAE6320_PLATFORM_D3D )
+
+	#if defined( EAE6320_PLATFORM_D3D )
 			// Geometry Data
 			//--------------
-			eae6320::Graphics::cVertexFormat* m_vertexFormat = nullptr;
+			eae6320::Graphics::cVertexFormat*  m_vertexFormat = nullptr;
 			// A vertex buffer holds the data for each vertex
 			ID3D11Buffer* m_vertexBuffer = nullptr;
-#elif defined( EAE6320_PLATFORM_GL )
+	#elif defined( EAE6320_PLATFORM_GL )
 			// A vertex buffer holds the data for each vertex
 			GLuint m_vertexBufferId = 0;
 			// A vertex array encapsulates the vertex data as well as the vertex input layout
 			GLuint m_vertexArrayId = 0;
-#endif
+	#endif
 
 		public:
 			eae6320::cResult InitializeGeometry();
