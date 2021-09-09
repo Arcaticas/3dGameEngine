@@ -28,7 +28,7 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 	}
 	// Vertex Buffer
 	{
-		constexpr unsigned int triangleCount = 1;
+		constexpr unsigned int triangleCount = 2;
 		constexpr unsigned int vertexCountPerTriangle = 3;
 		constexpr auto vertexCount = triangleCount * vertexCountPerTriangle;
 		eae6320::Graphics::VertexFormats::sVertex_mesh vertexData[vertexCount];
@@ -46,6 +46,18 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 			vertexData[2].x = 1.0f;
 			vertexData[2].y = 0.0f;
 			vertexData[2].z = 0.0f;
+
+			vertexData[3].x = 0.0f;
+			vertexData[3].y = 0.0f;
+			vertexData[3].z = 0.0f;
+
+			vertexData[4].x = -1.0f;
+			vertexData[4].y = 0.0f;
+			vertexData[4].z = 0.0f;
+
+			vertexData[5].x = -1.0f;
+			vertexData[5].y = 1.0f;
+			vertexData[5].z = 0.0f;
 		}
 		constexpr auto bufferSize = sizeof(vertexData[0]) * vertexCount;
 		EAE6320_ASSERT(bufferSize <= std::numeric_limits<decltype(D3D11_BUFFER_DESC::ByteWidth)>::max());
@@ -123,7 +135,7 @@ void eae6320::Graphics::Geometry::Draw()
 		{
 			// As of this comment only a single triangle is drawn
 			// (you will have to update this code in future assignments!)
-			constexpr unsigned int triangleCount = 1;
+			constexpr unsigned int triangleCount = 2;
 			constexpr unsigned int vertexCountPerTriangle = 3;
 			constexpr auto vertexCountToRender = triangleCount * vertexCountPerTriangle;
 			// It's possible to start rendering primitives in the middle of the stream

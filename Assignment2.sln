@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MyGame", "MyGame", "{411A65A6-2621-4D50-8D6A-8F12BEE8EA12}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyGame", "MyGame_\MyGame\MyGame.vcxproj", "{BE818602-7CBD-469A-B778-BBB2157F5EBB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{14886634-90D9-4B9C-BA13-570E8DE2154D} = {14886634-90D9-4B9C-BA13-570E8DE2154D}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExampleGame", "ExampleGame", "{AC0EBDC3-8723-4A43-9112-DB863C2C3694}"
 EndProject
