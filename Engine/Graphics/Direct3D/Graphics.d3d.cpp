@@ -254,7 +254,7 @@ eae6320::cResult eae6320::Graphics::Initialize( const sInitializationParameters&
 	// Initialize the shading data
 	result = ShaderData.Initialize();
 	
-
+	// Initialize the geometry
 	result = GeometryData.Initialize();
 
 
@@ -278,7 +278,7 @@ eae6320::cResult eae6320::Graphics::CleanUp()
 
 	ShaderData.CleanUp();
 
-	ShaderData.CleanUp();
+	GeometryData.CleanUp();
 
 	{
 		const auto result_constantBuffer_frame = s_constantBuffer_frame.CleanUp();
