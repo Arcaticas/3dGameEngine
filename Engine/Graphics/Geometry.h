@@ -25,7 +25,10 @@ namespace eae6320
 			//--------------
 #if defined( EAE6320_PLATFORM_D3D )
 			eae6320::Graphics::cVertexFormat*  m_vertexFormat = nullptr;
+
 			ID3D11Buffer* m_vertexBuffer = nullptr;
+
+			ID3D11Buffer* m_indexBuffer = nullptr;
 #elif defined( EAE6320_PLATFORM_GL )
 			// A vertex buffer holds the data for each vertex
 			GLuint m_vertexBufferId = 0;

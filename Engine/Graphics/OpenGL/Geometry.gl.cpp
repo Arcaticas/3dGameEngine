@@ -201,10 +201,10 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 	// Assign the data to the index buffer
 	{
 		constexpr unsigned int triangleCount = 2;
-		constexpr unsigned int vertexCountPerTriangle = 3;
-		const auto vertexCount = triangleCount * vertexCountPerTriangle;
+		constexpr unsigned int indexCountPerTriangle = 3;
+		const auto indexCount = triangleCount * indexCountPerTriangle;
 
-		uint16_t indexBufferData[vertexCount];
+		uint16_t indexBufferData[indexCount];
 		{
 			indexBufferData[0] = 0;
 			indexBufferData[1] = 1;
@@ -214,7 +214,7 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 			indexBufferData[5] = 5;
 		}
 
-		constexpr auto indexBufferSize = sizeof(indexBufferData[0]) * vertexCount;
+		constexpr auto indexBufferSize = sizeof(indexBufferData[0]) * indexCount;
 		EAE6320_ASSERT(indexBufferSize <= std::numeric_limits<GLsizeiptr>::max());
 
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(indexBufferSize), reinterpret_cast<GLvoid*>(indexBufferData), GL_STATIC_DRAW);
