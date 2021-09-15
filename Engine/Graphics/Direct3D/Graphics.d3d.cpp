@@ -139,9 +139,11 @@ void eae6320::Graphics::RenderFrame()
 			return;
 		}
 	}
-
+	/// <summary>
+	/// ///////////////////////////////////////////////////////////////////////////////////////////////////
+	/// </summary>
 	auto* const direct3dImmediateContext = sContext::g_context.direct3dImmediateContext;
-	EAE6320_ASSERT( direct3dImmediateContext );
+	EAE6320_ASSERT(direct3dImmediateContext);
 
 	// Every frame an entirely new image will be created.
 	// Before drawing anything, then, the previous image will be erased
@@ -171,7 +173,7 @@ void eae6320::Graphics::RenderFrame()
 	{
 		// Copy the data from the system memory that the application owns to GPU memory
 		auto& constantData_frame = dataRequiredToRenderFrame->constantData_frame;
-		s_constantBuffer_frame.Update( &constantData_frame );
+		s_constantBuffer_frame.Update(&constantData_frame);
 	}
 
 	// Bind the shading data
@@ -309,6 +311,7 @@ eae6320::cResult eae6320::Graphics::CleanUp()
 
 // Helper Definitions
 //===================
+//PROBABLY NEEDS TO BE BROKEN OUT INTO ANOTHER CPP
 
 namespace
 {

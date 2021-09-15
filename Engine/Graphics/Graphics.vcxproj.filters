@@ -56,6 +56,13 @@
       <Filter>Direct3D</Filter>
     </ClCompile>
     <ClCompile Include="cEffect.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Direct3D\cRenderer.d3d.cpp">
+      <Filter>Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\cRenderer.gl.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windows\ExternalLibraries.win.h">
@@ -78,6 +85,7 @@
     </ClInclude>
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="cEffect.h" />
+    <ClInclude Include="cRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Windows">

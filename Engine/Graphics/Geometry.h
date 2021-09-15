@@ -5,8 +5,8 @@
 
 #include <cstdint>
 #include <Engine/Results/Results.h>
-#include "../cVertexFormat.h"
-#include "../cConstantBuffer.h"
+#include "cVertexFormat.h"
+#include "cConstantBuffer.h"
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
 #include <Engine/Windows/Includes.h>
@@ -31,6 +31,8 @@ namespace eae6320
 			GLuint m_vertexBufferId = 0;
 			// A vertex array encapsulates the vertex data as well as the vertex input layout
 			GLuint m_vertexArrayId = 0;
+			//A index buffer hold references to the index of a particular vertex
+			GLuint m_indexBufferObject = 0;
 #endif
 
 		public:
