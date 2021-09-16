@@ -33,9 +33,6 @@
     <ClCompile Include="Direct3D\cVertexFormat.d3d.cpp">
       <Filter>Direct3D</Filter>
     </ClCompile>
-    <ClCompile Include="Direct3D\Graphics.d3d.cpp">
-      <Filter>Direct3D</Filter>
-    </ClCompile>
     <ClCompile Include="Direct3D\sContext.d3d.cpp">
       <Filter>Direct3D</Filter>
     </ClCompile>
@@ -43,9 +40,6 @@
       <Filter>Direct3D</Filter>
     </ClCompile>
     <ClCompile Include="Geometry.cpp" />
-    <ClCompile Include="OpenGL\Graphics.gl.cpp">
-      <Filter>OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="OpenGL\Geometry.gl.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>

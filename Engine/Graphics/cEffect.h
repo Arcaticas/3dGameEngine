@@ -30,11 +30,11 @@ namespace eae6320
 			GLuint m_programId = 0;
 #endif
 		public:
-			eae6320::cResult InitializeShadingData();
+			eae6320::cResult InitializeShadingData(const char* const shaderPath);
 
 			void BindData();
 			void Draw();
-			eae6320::cResult Initialize();
+			eae6320::cResult Initialize(const char* const shaderPath);
 			eae6320::cResult CleanUp();
 
 			operator bool();

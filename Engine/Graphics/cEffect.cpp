@@ -14,11 +14,11 @@ void eae6320::Graphics::cEffect::Draw()
 
 }
 
-eae6320::cResult eae6320::Graphics::cEffect::Initialize()
+eae6320::cResult eae6320::Graphics::cEffect::Initialize(const char* const shaderPath)
 {
 	auto result = Results::Success;
 
-	if (!(result = InitializeShadingData()))
+	if (!(result = InitializeShadingData(shaderPath)))
 	{
 		EAE6320_ASSERTF(false, "Can't initialize Graphics without the shading data");
 		return result;

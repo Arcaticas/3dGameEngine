@@ -11,7 +11,7 @@ eae6320::cResult eae6320::Graphics::cRenderer::InitializeViews(const unsigned in
 void eae6320::Graphics::cRenderer::ClearImageBuffer()
 {
 	{
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.0f, .5f, 0.0f, 1.0f);
 		EAE6320_ASSERT(glGetError() == GL_NO_ERROR);
 	}
 	{

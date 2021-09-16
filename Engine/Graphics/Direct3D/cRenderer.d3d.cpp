@@ -164,7 +164,7 @@ void eae6320::Graphics::cRenderer::ClearImageBuffer()
 	EAE6320_ASSERT(s_renderTargetView);
 
 	// Black
-	constexpr float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	constexpr float clearColor[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
 	direct3dImmediateContext->ClearRenderTargetView(s_renderTargetView, clearColor);
 }
 

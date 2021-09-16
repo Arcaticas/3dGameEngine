@@ -10,6 +10,7 @@ return
 		{ path = "Shaders/Fragment/standard.shader", arguments = { "fragment" } },
 
 		{ path = "Shaders/Fragment/flasher.shader", arguments = { "fragment" } },
+		{ path = "Shaders/Fragment/flasher2.shader", arguments = { "fragment" } },
 
 		{ path = "Shaders/Vertex/vertexInputLayout_mesh.shader", arguments = { "vertex" } },
 	},

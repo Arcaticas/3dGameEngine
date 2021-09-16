@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <Engine/Results/Results.h>
 #include "cVertexFormat.h"
+#include "VertexFormats.h"
 #include "cConstantBuffer.h"
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
@@ -23,6 +24,7 @@ namespace eae6320
 
 			// Geometry Data
 			//--------------
+			unsigned int triangleCount = 0;
 #if defined( EAE6320_PLATFORM_D3D )
 			eae6320::Graphics::cVertexFormat*  m_vertexFormat = nullptr;
 
@@ -36,13 +38,15 @@ namespace eae6320
 			GLuint m_vertexArrayId = 0;
 			//A index buffer hold references to the index of a particular vertex
 			GLuint m_indexBufferObject = 0;
+
+			
 #endif
 
 		public:
-			eae6320::cResult InitializeGeometry();
+			eae6320::cResult InitializeGeometry(eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexInputs[], uint16_t i_indexArray[], int i_vSize, int i_iSize);
 			
 			void Draw();
-			eae6320::cResult Initialize();
+			eae6320::cResult Initialize(eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexInputs[], uint16_t i_indexArray[], int i_vSize, int i_iSize);
 			eae6320::cResult CleanUp();
 
 			operator bool();

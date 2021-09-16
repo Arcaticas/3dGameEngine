@@ -3,15 +3,17 @@
 #include "Includes.h"
 
 #include "../sContext.h"
-#include "../VertexFormats.h"
 
 #include <Engine/Asserts/Asserts.h>
 #include <Engine/Logging/Logging.h>
 
 
 
-eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
+eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry(eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexInputs[], uint16_t i_indexArray[], int i_vSize, int i_iSize)
 {
+	EAE6320_ASSERTF(i_iSize % 3 == 0, "Index Array not divisible by 3");
+	triangleCount = (i_iSize / 3);
+
 	auto result = Results::Success;
 
 	auto* const direct3dDevice = eae6320::Graphics::sContext::g_context.direct3dDevice;
@@ -28,41 +30,10 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 	}
 	// Vertex Buffer
 	{
-		constexpr unsigned int triangleCount = 2;
-		constexpr unsigned int vertexCountPerTriangle = 3;
-		constexpr auto vertexCount = triangleCount * vertexCountPerTriangle;
-		eae6320::Graphics::VertexFormats::sVertex_mesh vertexData[vertexCount];
-		{
-			// Direct3D is left-handed
 
-			vertexData[0].x = 0.0f;
-			vertexData[0].y = 0.0f;
-			vertexData[0].z = 0.0f;
-
-			vertexData[1].x = 1.0f;
-			vertexData[1].y = 1.0f;
-			vertexData[1].z = 0.0f;
-
-			vertexData[2].x = 1.0f;
-			vertexData[2].y = 0.0f;
-			vertexData[2].z = 0.0f;
-
-			vertexData[3].x = 0.0f;
-			vertexData[3].y = 0.0f;
-			vertexData[3].z = 0.0f;
-
-			vertexData[4].x = -1.0f;
-			vertexData[4].y = 0.0f;
-			vertexData[4].z = 0.0f;
-
-			vertexData[5].x = -1.0f;
-			vertexData[5].y = 1.0f;
-			vertexData[5].z = 0.0f;
-		}
-
-		constexpr auto bufferSize = sizeof(vertexData[0]) * vertexCount;
+		auto bufferSize = sizeof(i_vertexInputs[0]) * i_vSize;
 		EAE6320_ASSERT(bufferSize <= std::numeric_limits<decltype(D3D11_BUFFER_DESC::ByteWidth)>::max());
-		constexpr auto bufferDescription = [bufferSize]
+		auto bufferDescription = [bufferSize]
 		{
 			D3D11_BUFFER_DESC bufferDescription{};
 
@@ -76,11 +47,11 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 			return bufferDescription;
 		}();
 
-		const auto initialData = [vertexData]
+		const auto initialData = [i_vertexInputs]
 		{
 			D3D11_SUBRESOURCE_DATA initialData{};
 
-			initialData.pSysMem = vertexData;
+			initialData.pSysMem = i_vertexInputs;
 			// (The other data members are ignored for non-texture buffers)
 
 			return initialData;
@@ -98,23 +69,10 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 
 	//Index Buffer
 	{
-		constexpr unsigned int triangleCount = 2;
-		constexpr unsigned int indexCountPerTriangle = 3;
-		constexpr auto indexCount = triangleCount * indexCountPerTriangle;
 
-		uint16_t indexBufferData[indexCount];
-		{
-			indexBufferData[0] = 0;
-			indexBufferData[1] = 1;
-			indexBufferData[2] = 2;
-			indexBufferData[3] = 2;
-			indexBufferData[4] = 4;
-			indexBufferData[5] = 5;
-		}
-
-		constexpr auto bufferSize = sizeof(indexBufferData[0]) * indexCount;
+		auto bufferSize = sizeof(i_indexArray[0]) * i_iSize;
 		EAE6320_ASSERT(bufferSize <= std::numeric_limits<decltype(D3D11_BUFFER_DESC::ByteWidth)>::max());
-		constexpr auto bufferDescription = [bufferSize]
+		auto bufferDescription = [bufferSize]
 		{
 			D3D11_BUFFER_DESC bufferDescription{};
 
@@ -128,11 +86,11 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 			return bufferDescription;
 		}();
 
-		const auto initialData = [indexBufferData]
+		const auto initialData = [i_indexArray]
 		{
 			D3D11_SUBRESOURCE_DATA initialData{};
 
-			initialData.pSysMem = indexBufferData;
+			initialData.pSysMem = i_indexArray;
 			// (The other data members are ignored for non-texture buffers)
 
 			return initialData;
@@ -201,9 +159,8 @@ void eae6320::Graphics::Geometry::Draw()
 		{
 			// As of this comment only a single triangle is drawn
 			// (you will have to update this code in future assignments!)
-			constexpr unsigned int triangleCount = 2;
 			constexpr unsigned int indexCountPerTriangle = 3;
-			constexpr auto indexCountToRender = triangleCount * indexCountPerTriangle;
+			auto indexCountToRender = triangleCount * indexCountPerTriangle;
 			// It's possible to start rendering primitives in the middle of the stream
 			constexpr unsigned int indexOfFirstIndexToUse = 0;
 			constexpr unsigned int offsetToAddToEachIndex = 0;
@@ -212,12 +169,12 @@ void eae6320::Graphics::Geometry::Draw()
 	}
 }
 
-eae6320::cResult eae6320::Graphics::Geometry::Initialize()
+eae6320::cResult eae6320::Graphics::Geometry::Initialize(eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexInputs[], uint16_t i_indexArray[], int i_vSize, int i_iSize)
 {
 	auto result = Results::Success;
 
 	{
-		if (!(result = InitializeGeometry()))
+		if (!(result = InitializeGeometry(i_vertexInputs, i_indexArray, i_vSize, i_iSize)))
 		{
 			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
 			return result;

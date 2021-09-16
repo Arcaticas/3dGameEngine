@@ -7,7 +7,7 @@
 
 
 
-eae6320::cResult eae6320::Graphics::cEffect::InitializeShadingData()
+eae6320::cResult eae6320::Graphics::cEffect::InitializeShadingData(const char* const shaderPath)
 {
 	auto result = eae6320::Results::Success;
 
@@ -17,7 +17,7 @@ eae6320::cResult eae6320::Graphics::cEffect::InitializeShadingData()
 		EAE6320_ASSERTF(false, "Can't initialize shading data without vertex shader");
 		return result;
 	}
-	if (!(result = eae6320::Graphics::cShader::Load("data/Shaders/Fragment/flasher.shader",
+	if (!(result = eae6320::Graphics::cShader::Load(shaderPath,
 		m_fragmentShader, eae6320::Graphics::eShaderType::Fragment)))
 	{
 		EAE6320_ASSERTF(false, "Can't initialize shading data without fragment shader");

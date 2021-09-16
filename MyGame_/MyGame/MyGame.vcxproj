@@ -55,9 +55,13 @@
     <ProjectReference Include="..\..\Engine\UserInput\UserInput.vcxproj">
       <Project>{193bb096-cd2c-48e8-8a28-99ecc2d019ad}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\BuildMyGameAssets\BuildMyGameAssets.vcxproj">
+      <Project>{14886634-90d9-4b9c-ba13-570e8de2154d}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Content\Shaders\Fragment\flasher.shader" />
+    <None Include="..\Content\Shaders\Fragment\flasher2.shader" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

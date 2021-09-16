@@ -9,8 +9,12 @@
 #include <new>
 #include <utility>
 
-eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
+eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry(eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexInputs[], uint16_t i_indexArray[], int i_vSize, int i_iSize)
 {
+
+	EAE6320_ASSERTF(i_iSize%3==0,"Index Array not divisible by 3");
+	triangleCount = (i_iSize / 3);
+
 	auto result = eae6320::Results::Success;
 
 	// Create a vertex array object and make it active
@@ -75,42 +79,11 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 	}
 	// Assign the data to the buffer
 	{
-		constexpr unsigned int triangleCount = 2;
-		constexpr unsigned int vertexCountPerTriangle = 3;
-		const auto vertexCount = triangleCount * vertexCountPerTriangle;
-		eae6320::Graphics::VertexFormats::sVertex_mesh vertexData[vertexCount];
-		{
-			// OpenGL is right-handed
-
-			vertexData[0].x = 0.0f;
-			vertexData[0].y = 0.0f;
-			vertexData[0].z = 0.0f;
-
-			vertexData[1].x = 1.0f;
-			vertexData[1].y = 0.0f;
-			vertexData[1].z = 0.0f;
-
-			vertexData[2].x = 1.0f;
-			vertexData[2].y = 1.0f;
-			vertexData[2].z = 0.0f;
-
-			vertexData[3].x = 0.0f;
-			vertexData[3].y = 0.0f;
-			vertexData[3].z = 0.0f;
-
-			vertexData[4].x = -1.0f;
-			vertexData[4].y = 1.0f;
-			vertexData[4].z = 0.0f;
-
-			vertexData[5].x = -1.0f;
-			vertexData[5].y = 0.0f;
-			vertexData[5].z = 0.0f;
-		}
 
 
-		constexpr auto bufferSize = sizeof(vertexData[0]) * vertexCount;
+		GLsizeiptr bufferSize = sizeof(i_vertexInputs[0]) * i_vSize;
 		EAE6320_ASSERT(bufferSize <= std::numeric_limits<GLsizeiptr>::max());
-		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(bufferSize), reinterpret_cast<GLvoid*>(vertexData),
+		glBufferData(GL_ARRAY_BUFFER, static_cast<GLsizeiptr>(bufferSize), reinterpret_cast<GLvoid*>(i_vertexInputs),
 			// In our class we won't ever read from the buffer
 			GL_STATIC_DRAW);
 
@@ -169,8 +142,28 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 		}
 	}
 
+	uint16_t* leftHandArray = new uint16_t[i_iSize];
+
 	// Create a index buffer object and make it active
 	{
+		for (int i = 0; i < i_iSize; i++)
+		{
+			leftHandArray[i] = i_indexArray[i];
+		}
+		
+		int temp = 0;
+		for (int i = 0; i < i_iSize; i++)
+		{
+			if (i % 3 == 1)
+			{
+				int temp = i_indexArray[i];
+				leftHandArray[i] = i_indexArray[i+1];
+				leftHandArray[i+1] = temp;
+				
+			}
+			
+		}
+
 		constexpr GLsizei bufferCount = 1;
 		glGenBuffers(bufferCount, &m_indexBufferObject);
 
@@ -200,24 +193,11 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 	}
 	// Assign the data to the index buffer
 	{
-		constexpr unsigned int triangleCount = 2;
-		constexpr unsigned int indexCountPerTriangle = 3;
-		const auto indexCount = triangleCount * indexCountPerTriangle;
 
-		uint16_t indexBufferData[indexCount];
-		{
-			indexBufferData[0] = 0;
-			indexBufferData[1] = 1;
-			indexBufferData[2] = 2;
-			indexBufferData[3] = 2;
-			indexBufferData[4] = 4;
-			indexBufferData[5] = 5;
-		}
-
-		constexpr auto indexBufferSize = sizeof(indexBufferData[0]) * indexCount;
+		GLsizeiptr indexBufferSize = sizeof(leftHandArray[0]) * i_iSize;
 		EAE6320_ASSERT(indexBufferSize <= std::numeric_limits<GLsizeiptr>::max());
 
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(indexBufferSize), reinterpret_cast<GLvoid*>(indexBufferData), GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<GLsizeiptr>(indexBufferSize), reinterpret_cast<GLvoid*>(leftHandArray), GL_STATIC_DRAW);
 
 		const auto errorCode = glGetError();
 		if (errorCode != GL_NO_ERROR)
@@ -231,7 +211,10 @@ eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry()
 
 	}
 
-
+	if (leftHandArray)
+	{
+		delete[](leftHandArray);
+	}
 
 
 
@@ -255,9 +238,8 @@ void eae6320::Graphics::Geometry::Draw()
 		constexpr GLenum mode = GL_TRIANGLES;
 		// As of this comment only a single triangle is drawn
 		// (you will have to update this code in future assignments!)
-		constexpr unsigned int triangleCount = 2;
 		constexpr unsigned int indexCountPerTriangle = 3;
-		constexpr auto indexCountToRender = triangleCount * indexCountPerTriangle;
+		auto indexCountToRender = triangleCount * indexCountPerTriangle;
 		// It's possible to start rendering primitives in the middle of the stream
 		const GLvoid* const offset = 0;
 		glDrawElements(mode, static_cast<GLsizei>(indexCountToRender), GL_UNSIGNED_SHORT, offset);
@@ -266,12 +248,12 @@ void eae6320::Graphics::Geometry::Draw()
 
 }
 
-eae6320::cResult eae6320::Graphics::Geometry::Initialize()
+eae6320::cResult eae6320::Graphics::Geometry::Initialize(eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexInputs[], uint16_t i_indexArray[], int i_vSize, int i_iSize)
 {
 	auto result = Results::Success;
 
 	{
-		if (!(result = InitializeGeometry()))
+		if (!(result = InitializeGeometry(i_vertexInputs, i_indexArray, i_vSize, i_iSize)))
 		{
 			EAE6320_ASSERTF(false, "Can't initialize Graphics without the geometry data");
 			return result;
@@ -351,5 +333,6 @@ eae6320::cResult eae6320::Graphics::Geometry::CleanUp()
 		}
 		m_indexBufferObject = 0;
 	}
+
 	return result;
 }

@@ -44,5 +44,8 @@
     <None Include="..\Content\Shaders\Fragment\flasher.shader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="..\Content\Shaders\Fragment\flasher2.shader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
