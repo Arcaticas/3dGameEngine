@@ -157,14 +157,14 @@ eae6320::cResult eae6320::Graphics::cRenderer::InitializeViews(const unsigned in
 	return result;
 }
 
-void eae6320::Graphics::cRenderer::ClearImageBuffer()
+void eae6320::Graphics::cRenderer::ClearImageBuffer(eae6320::Graphics::s_colorData i_backgroundColor)
 {
 	auto* const direct3dImmediateContext = sContext::g_context.direct3dImmediateContext;
 	EAE6320_ASSERT(direct3dImmediateContext);
 	EAE6320_ASSERT(s_renderTargetView);
 
 	// Black
-	constexpr float clearColor[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	float clearColor[4] = { i_backgroundColor.r, i_backgroundColor.g, i_backgroundColor.b, i_backgroundColor.alpha };
 	direct3dImmediateContext->ClearRenderTargetView(s_renderTargetView, clearColor);
 }
 

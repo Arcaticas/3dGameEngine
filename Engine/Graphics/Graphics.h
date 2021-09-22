@@ -12,6 +12,8 @@
 
 #include <cstdint>
 #include <Engine/Results/Results.h>
+#include "Geometry.h"
+#include "cEffect.h"
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
 	#include <Engine/Windows/Includes.h>
@@ -24,10 +26,21 @@ namespace eae6320
 {
 	namespace Graphics
 	{
+
+		//Color data struct
+		struct s_colorData
+		{
+			float r = 0;
+			float g = 0;
+			float b = 0;
+			float alpha = 0;
+		};
 		// Submission
 		//-----------
 
 		// These functions should be called from the application (on the application loop thread)
+
+		void SetBackgroundColor(float, float, float, float);
 
 		// As the class progresses you will add your own functions for submitting data,
 		// but the following is an example (that gets called automatically)

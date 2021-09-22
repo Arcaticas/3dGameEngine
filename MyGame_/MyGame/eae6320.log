@@ -5,7 +5,7 @@ The user settings file "settings.ini" doesn't exist. Using default settings inst
 Created main window "Theo's stuff -- OpenGL -- Debug"
 Set main window resolution to 512 x 512
 Failed to load shader from file data/Shaders/Vertex/standard.shader: Windows failed to open the file "data/Shaders/Vertex/standard.shader" for reading: The system cannot find the path specified.
+Failed to load shader from file data/Shaders/Vertex/standard.shader: Windows failed to open the file "data/Shaders/Vertex/standard.shader" for reading: The system cannot find the path specified.
 The application was successfully initialized
-Escape was pressed
 Unregistered main window class
 Closing log file

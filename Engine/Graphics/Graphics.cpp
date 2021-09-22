@@ -9,8 +9,6 @@
 #include "cShader.h"
 #include "sContext.h"
 #include "VertexFormats.h"
-#include "Geometry.h"
-#include "cEffect.h"
 #include "cRenderer.h"
 
 #include <Engine/Asserts/Asserts.h>
@@ -35,12 +33,14 @@ namespace
 
 	// Submission Data
 	//----------------
-
+	
+	
 	// This struct's data is populated at submission time;
 	// it must cache whatever is necessary in order to render a frame
 	struct sDataRequiredToRenderAFrame
 	{
 		eae6320::Graphics::ConstantBufferFormats::sFrame constantData_frame;
+		eae6320::Graphics::s_colorData backgroundColor;
 	};
 	// In our class there will be two copies of the data required to render a frame:
 	//	* One of them will be in the process of being populated by the data currently being submitted by the application loop thread
@@ -80,6 +80,14 @@ namespace
 
 // Submission
 //-----------
+
+void eae6320::Graphics::SetBackgroundColor(float i_r, float i_g, float i_b, float i_alpha)
+{
+	s_dataBeingSubmittedByApplicationThread->backgroundColor.r = i_r;
+	s_dataBeingSubmittedByApplicationThread->backgroundColor.g = i_g;
+	s_dataBeingSubmittedByApplicationThread->backgroundColor.b = i_b;
+	s_dataBeingSubmittedByApplicationThread->backgroundColor.alpha = i_alpha;
+}
 
 void eae6320::Graphics::SubmitElapsedTime(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_simulationTime)
 {
@@ -136,7 +144,7 @@ void eae6320::Graphics::RenderFrame()
 	// Before drawing anything, then, the previous image will be erased
 	// by "clearing" the image buffer (filling it with a solid color)
 	{
-		RenderData.ClearImageBuffer();
+		RenderData.ClearImageBuffer(s_dataBeingRenderedByRenderThread->backgroundColor);
 	}
 	// In addition to the color buffer there is also a hidden image called the "depth buffer"
 	// which is used to make it less important which order draw calls are made.
@@ -299,7 +307,7 @@ eae6320::cResult eae6320::Graphics::Initialize(const sInitializationParameters& 
 		result = GeometryData1.Initialize(stuff1, stuff2, stuff1Size, stuff2Size);
 		result = GeometryData2.Initialize(stuff3, stuff4, stuff3Size, stuff4Size);
 	}
-	sizeof(GeometryData1);
+	sizeof(ShaderData1);
 
 	return result;
 }

@@ -25,6 +25,7 @@ namespace eae6320
 	{
 		// Inherited Implementation
 		//=========================
+		void SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate);
 
 	private:
 

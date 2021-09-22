@@ -32,7 +32,7 @@ namespace eae6320
 
 			eae6320::cResult InitializeViews(const unsigned int i_resolutionWidth, const unsigned int i_resolutionHeight);
 
-			void ClearImageBuffer();
+			void ClearImageBuffer(eae6320::Graphics::s_colorData);
 			void ClearDepthBuffer();
 			void DrawFrontBuffer();
 

@@ -1,8 +1,7 @@
 #include "../Geometry.h"
 
 #include "Includes.h"
-#include "../sContext.h"
-#include "../VertexFormats.h"
+
 
 #include <Engine/Asserts/Asserts.h>
 #include <Engine/Logging/Logging.h>

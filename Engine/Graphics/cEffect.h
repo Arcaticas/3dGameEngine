@@ -4,6 +4,7 @@
 #include "Configuration.h"
 
 #include <cstdint>
+#include <Engine/Assets/ReferenceCountedAssets.h>
 #include <Engine/Results/Results.h>
 #include "cShader.h"
 #include "cRenderState.h"
@@ -30,6 +31,9 @@ namespace eae6320
 			GLuint m_programId = 0;
 #endif
 		public:
+
+			
+
 			eae6320::cResult InitializeShadingData(const char* const shaderPath);
 
 			void BindData();

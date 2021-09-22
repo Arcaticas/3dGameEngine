@@ -8,10 +8,10 @@ eae6320::cResult eae6320::Graphics::cRenderer::InitializeViews(const unsigned in
 
 
 
-void eae6320::Graphics::cRenderer::ClearImageBuffer()
+void eae6320::Graphics::cRenderer::ClearImageBuffer(eae6320::Graphics::s_colorData i_backgroundColor)
 {
 	{
-		glClearColor(0.0f, .5f, 0.0f, 1.0f);
+		glClearColor(i_backgroundColor.r, i_backgroundColor.g, i_backgroundColor.b, i_backgroundColor.alpha);
 		EAE6320_ASSERT(glGetError() == GL_NO_ERROR);
 	}
 	{
