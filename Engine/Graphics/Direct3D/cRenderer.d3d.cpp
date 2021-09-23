@@ -200,7 +200,7 @@ eae6320::cResult eae6320::Graphics::cRenderer::Initialize(const sInitializationP
 		return result;
 	}
 
-	return eae6320::cResult();
+	return result;
 }
 
 eae6320::cResult eae6320::Graphics::cRenderer::CleanUp()

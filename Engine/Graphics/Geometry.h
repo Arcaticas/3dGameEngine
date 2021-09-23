@@ -21,7 +21,8 @@ namespace eae6320
 	{
 		class Geometry
 		{
-
+			//Reference Count
+			EAE6320_ASSETS_DECLAREREFERENCECOUNT();
 			// Geometry Data
 			//--------------
 			unsigned int triangleCount = 0;
@@ -38,16 +39,23 @@ namespace eae6320
 			GLuint m_vertexArrayId = 0;
 			//A index buffer hold references to the index of a particular vertex
 			GLuint m_indexBufferObject = 0;
-
-			
 #endif
 
-		public:
+			EAE6320_ASSETS_DECLAREDELETEDREFERENCECOUNTEDFUNCTIONS(Geometry);
 			eae6320::cResult InitializeGeometry(eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexInputs[], uint16_t i_indexArray[], int i_vSize, int i_iSize);
-			
-			void Draw();
 			eae6320::cResult Initialize(eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexInputs[], uint16_t i_indexArray[], int i_vSize, int i_iSize);
 			eae6320::cResult CleanUp();
+
+			Geometry() = default;
+			~Geometry();
+		public:
+			EAE6320_ASSETS_DECLAREREFERENCECOUNTINGFUNCTIONS();
+
+			static eae6320::cResult Load(eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexInputs[], uint16_t i_indexArray[], int i_vSize, int i_iSize, Geometry*& o_mesh);
+
+			
+			void Draw();
+			
 
 			operator bool();
 		};

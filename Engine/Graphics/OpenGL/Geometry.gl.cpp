@@ -10,8 +10,6 @@
 
 eae6320::cResult eae6320::Graphics::Geometry::InitializeGeometry(eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexInputs[], uint16_t i_indexArray[], int i_vSize, int i_iSize)
 {
-
-	EAE6320_ASSERTF(i_iSize%3==0,"Index Array not divisible by 3");
 	triangleCount = (i_iSize / 3);
 
 	auto result = eae6320::Results::Success;

@@ -35,12 +35,29 @@ namespace eae6320
 			float b = 0;
 			float alpha = 0;
 		};
+		//Mesh struct
+		struct s_meshData
+		{
+			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexInputs;
+			uint16_t* i_indexArray;
+			int i_vSize;
+			int i_iSize;
+		};
+
+		struct s_meshEffectPair
+		{
+			eae6320::Graphics::cEffect* effect = nullptr;
+			eae6320::Graphics::Geometry* mesh = nullptr;
+		};
+		
 		// Submission
 		//-----------
 
 		// These functions should be called from the application (on the application loop thread)
 
 		void SetBackgroundColor(float, float, float, float);
+
+		void SubmitMeshEffectPair(s_meshData i_meshData, const char* const i_shaderPath);
 
 		// As the class progresses you will add your own functions for submitting data,
 		// but the following is an example (that gets called automatically)

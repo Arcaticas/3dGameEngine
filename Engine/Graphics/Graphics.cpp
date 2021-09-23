@@ -41,6 +41,8 @@ namespace
 	{
 		eae6320::Graphics::ConstantBufferFormats::sFrame constantData_frame;
 		eae6320::Graphics::s_colorData backgroundColor;
+		eae6320::Graphics::s_meshEffectPair meshEffectData[500];
+		int meshEffectIndex = 0;
 	};
 	// In our class there will be two copies of the data required to render a frame:
 	//	* One of them will be in the process of being populated by the data currently being submitted by the application loop thread
@@ -67,14 +69,12 @@ namespace
 	// Geometry Data
 	//--------------
 
-	eae6320::Graphics::Geometry GeometryData1;
-	eae6320::Graphics::Geometry GeometryData2;
+
 
 	// Shading Data
 	//-------------
 
-	eae6320::Graphics::cEffect ShaderData1;
-	eae6320::Graphics::cEffect ShaderData2;
+
 }
 
 
@@ -87,6 +87,35 @@ void eae6320::Graphics::SetBackgroundColor(float i_r, float i_g, float i_b, floa
 	s_dataBeingSubmittedByApplicationThread->backgroundColor.g = i_g;
 	s_dataBeingSubmittedByApplicationThread->backgroundColor.b = i_b;
 	s_dataBeingSubmittedByApplicationThread->backgroundColor.alpha = i_alpha;
+}
+
+void eae6320::Graphics::SubmitMeshEffectPair(s_meshData i_meshData, const char* const i_shaderPath)
+{
+	
+
+	auto result = Results::Success;
+	int index = s_dataBeingSubmittedByApplicationThread->meshEffectIndex;
+
+	if (!(result = eae6320::Graphics::cEffect::Load(i_shaderPath, s_dataBeingSubmittedByApplicationThread->meshEffectData[index].effect)))
+	{
+		EAE6320_ASSERTF(false, "Fuck");
+	}
+
+	if (!(result = eae6320::Graphics::Geometry::Load(i_meshData.i_vertexInputs,
+		i_meshData.i_indexArray,
+		i_meshData.i_vSize,
+		i_meshData.i_iSize,
+		s_dataBeingSubmittedByApplicationThread->meshEffectData[index].mesh)))
+	{
+		EAE6320_ASSERTF(false, "Fuck");
+	}
+	
+
+	s_dataBeingSubmittedByApplicationThread->meshEffectIndex++;
+	s_dataBeingSubmittedByApplicationThread->meshEffectData[index].effect->IncrementReferenceCount();
+	s_dataBeingSubmittedByApplicationThread->meshEffectData[index].mesh->IncrementReferenceCount();
+	
+
 }
 
 void eae6320::Graphics::SubmitElapsedTime(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_simulationTime)
@@ -160,14 +189,15 @@ void eae6320::Graphics::RenderFrame()
 		auto& constantData_frame = s_dataBeingRenderedByRenderThread->constantData_frame;
 		s_constantBuffer_frame.Update(&constantData_frame);
 	}
-	// Bind the shading data
-	ShaderData1.Draw();
-	// Draw the geometry
-	GeometryData1.Draw();
 	
-	ShaderData2.Draw();
-	
-	GeometryData2.Draw();
+	//Loop through the Meshes and Effects
+	for (int i = 0; i < s_dataBeingRenderedByRenderThread->meshEffectIndex; i++)
+	{
+		// Bind the shading data
+		s_dataBeingRenderedByRenderThread->meshEffectData[i].effect->Draw();
+		// Draw the geometry
+		s_dataBeingRenderedByRenderThread->meshEffectData[i].mesh->Draw();
+	}
 
 	// Everything has been drawn to the "back buffer", which is just an image in memory.
 	// In order to display it the contents of the back buffer must be "presented"
@@ -180,8 +210,15 @@ void eae6320::Graphics::RenderFrame()
 	// you must make sure that it is all cleaned up and cleared out
 	// so that the struct can be re-used (i.e. so that data for a new frame can be submitted to it)
 	{
-		// (At this point in the class there isn't anything that needs to be cleaned up)
-		//dataRequiredToRenderFrame	// TODO
+		for (int i = 0; i < s_dataBeingRenderedByRenderThread->meshEffectIndex; i++)
+		{
+			uint16_t thing = s_dataBeingRenderedByRenderThread->meshEffectData[i].effect->DecrementReferenceCount();
+			s_dataBeingRenderedByRenderThread->meshEffectData[i].mesh->DecrementReferenceCount();
+			
+			s_dataBeingRenderedByRenderThread->meshEffectData[i].effect = nullptr;
+			s_dataBeingRenderedByRenderThread->meshEffectData[i].mesh = nullptr;
+		}
+		s_dataBeingRenderedByRenderThread->meshEffectIndex = 0;
 	}
 }
 
@@ -236,78 +273,8 @@ eae6320::cResult eae6320::Graphics::Initialize(const sInitializationParameters& 
 		result = RenderData.Initialize(i_initializationParameters);
 	}
 
-	const char* const shaderPath1 = "data/Shaders/Fragment/flasher.shader";
-	const char* const shaderPath2 = "data/Shaders/Fragment/flasher2.shader";
 
-	// Initialize the shading data
-	{
-		result = ShaderData1.Initialize(shaderPath1);
-		result = ShaderData2.Initialize(shaderPath2);
-	}
-
-	constexpr int stuff1Size = 5;
-	eae6320::Graphics::VertexFormats::sVertex_mesh stuff1[stuff1Size];
-	{
-		stuff1[0].x = 0.0f;
-		stuff1[0].y = -1.0f;
-		stuff1[0].z = 0.0f;
-
-		stuff1[1].x = .5f;
-		stuff1[1].y = 0.0f;
-		stuff1[1].z = 0.0f;
-
-		stuff1[2].x = 1.0f;
-		stuff1[2].y = -1.0f;
-		stuff1[2].z = 0.0f;
-
-		stuff1[3].x = -.5f;
-		stuff1[3].y = 0.0f;
-		stuff1[3].z = 0.0f;
-
-		stuff1[4].x = -1.0f;
-		stuff1[4].y = -1.0f;
-		stuff1[4].z = 0.0f;
-	}
-	const auto stuff2Size = 6;
-	uint16_t stuff2[stuff2Size];
-	{
-		stuff2[0] = 0;
-		stuff2[1] = 1;
-		stuff2[2] = 2;
-		stuff2[3] = 0;
-		stuff2[4] = 4;
-		stuff2[5] = 3;
-	}
-	constexpr int stuff3Size = 3;
-	eae6320::Graphics::VertexFormats::sVertex_mesh stuff3[stuff3Size];
-	{
-		stuff3[0].x = 0.0f;
-		stuff3[0].y = 1.0f;
-		stuff3[0].z = 0.0f;
-
-		stuff3[1].x = .5f;
-		stuff3[1].y = 0.0f;
-		stuff3[1].z = 0.0f;
-
-		stuff3[2].x = -.5f;
-		stuff3[2].y = 0.0f;
-		stuff3[2].z = 0.0f;
-
-	}
-	const auto stuff4Size = 6;
-	uint16_t stuff4[stuff4Size];
-	{
-		stuff4[0] = 0;
-		stuff4[1] = 1;
-		stuff4[2] = 2;
-
-	}
-	// Initialize the geometry
-	{
-		result = GeometryData1.Initialize(stuff1, stuff2, stuff1Size, stuff2Size);
-		result = GeometryData2.Initialize(stuff3, stuff4, stuff3Size, stuff4Size);
-	}
-	sizeof(ShaderData1);
+	
 
 	return result;
 }
@@ -317,15 +284,27 @@ eae6320::cResult eae6320::Graphics::CleanUp()
 {
 	auto result = Results::Success;
 
-	RenderData.CleanUp();
+	result = RenderData.CleanUp();
 
-	ShaderData1.CleanUp();
+	for (int i = 0; i < 500; i++)
+	{
+		s_dataBeingRenderedByRenderThread->meshEffectData[i].effect->DecrementReferenceCount();
+		s_dataBeingRenderedByRenderThread->meshEffectData[i].mesh->DecrementReferenceCount();
+		s_dataBeingRenderedByRenderThread->meshEffectData[i].effect = nullptr;
+		s_dataBeingRenderedByRenderThread->meshEffectData[i].mesh = nullptr;
+		
+	}
+	
 
-	GeometryData1.CleanUp();
+	for (int i = 0; i < 500; i++)
+	{
 
-	ShaderData2.CleanUp();
-
-	GeometryData2.CleanUp();
+		s_dataBeingSubmittedByApplicationThread->meshEffectData[i].effect->DecrementReferenceCount();
+		s_dataBeingSubmittedByApplicationThread->meshEffectData[i].mesh->DecrementReferenceCount();
+		s_dataBeingSubmittedByApplicationThread->meshEffectData[i].effect = nullptr;
+		s_dataBeingSubmittedByApplicationThread->meshEffectData[i].mesh = nullptr;
+	}
+	
 
 	{
 		const auto result_constantBuffer_frame = s_constantBuffer_frame.CleanUp();

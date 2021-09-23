@@ -16,12 +16,14 @@ eae6320::cResult eae6320::Graphics::cEffect::InitializeShadingData(const char* c
 		EAE6320_ASSERTF(false, "Can't initialize shading data without vertex shader");
 		return result;
 	}
+
 	if (!(result = eae6320::Graphics::cShader::Load(shaderPath ,
 		m_fragmentShader, eae6320::Graphics::eShaderType::Fragment)))
 	{
 		EAE6320_ASSERTF(false, "Can't initialize shading data without fragment shader");
 		return result;
 	}
+
 	{
 		constexpr auto renderStateBits = []
 		{
