@@ -191,16 +191,17 @@ eae6320::cResult eae6320::Graphics::Geometry::CleanUp()
 		m_vertexBuffer->Release();
 		m_vertexBuffer = nullptr;
 	}
+	if (m_indexBuffer)
+	{
+		m_indexBuffer->Release();
+		m_indexBuffer = nullptr;
+	}
 	if (m_vertexFormat)
 	{
 		m_vertexFormat->DecrementReferenceCount();
 		m_vertexFormat = nullptr;
 	}
-	if (m_indexBuffer)
-	{
-		m_vertexBuffer->Release();
-		m_vertexBuffer = nullptr;
-	}
+	
 
 	return result;
 }

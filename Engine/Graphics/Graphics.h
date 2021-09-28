@@ -57,7 +57,7 @@ namespace eae6320
 
 		void SetBackgroundColor(float, float, float, float);
 
-		void SubmitMeshEffectPair(s_meshData i_meshData, const char* const i_shaderPath);
+		eae6320::cResult SubmitMeshEffectPair(s_meshData i_meshData, const char* const i_shaderPath);
 
 		// As the class progresses you will add your own functions for submitting data,
 		// but the following is an example (that gets called automatically)

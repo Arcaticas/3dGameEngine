@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cGameObject.cpp" />
     <ClCompile Include="iApplication.cpp" />
     <ClCompile Include="Windows\iApplication.win.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cGameObject.h" />
     <ClInclude Include="iApplication.h" />
     <ClInclude Include="Windows\iApplication.win.h" />
     <ClInclude Include="Windows\ExternalLibraries.win.h" />

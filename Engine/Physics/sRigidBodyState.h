@@ -35,10 +35,10 @@ namespace eae6320
 			// Data
 			//=====
 
-			Math::sVector position;	// In arbitrary units determined by the applicaton's convention
-			Math::sVector velocity;	// Distance per second
-			Math::sVector acceleration;	// Distance per second^2
-			Math::cQuaternion orientation;
+			Math::sVector position = Math::sVector();	// In arbitrary units determined by the applicaton's convention
+			Math::sVector velocity = Math::sVector();	// Distance per second
+			Math::sVector acceleration = Math::sVector();	// 1/2 Distance per second^2
+			Math::cQuaternion orientation = Math::cQuaternion();
 			Math::sVector angularVelocity_axis_local = Math::sVector( 0.0f, 1.0f, 0.0f );	// In local space (not world space)
 			float angularSpeed = 0.0f;	// Radians per second (positive values rotate right-handed, negative rotate left-handed)
 

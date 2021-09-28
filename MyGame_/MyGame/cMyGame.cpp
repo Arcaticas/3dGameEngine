@@ -96,7 +96,7 @@ void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_s
 
 	
 	eae6320::Graphics::SetBackgroundColor(0, .5, .5, 1.0);
-
+	
 	if (hide)
 	{
 
@@ -117,6 +117,8 @@ void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_s
 
 	}
 	
+
+	//CreateGameObject(mesh, shader, vector);
 }
 
 

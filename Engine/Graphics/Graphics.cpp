@@ -89,16 +89,17 @@ void eae6320::Graphics::SetBackgroundColor(float i_r, float i_g, float i_b, floa
 	s_dataBeingSubmittedByApplicationThread->backgroundColor.alpha = i_alpha;
 }
 
-void eae6320::Graphics::SubmitMeshEffectPair(s_meshData i_meshData, const char* const i_shaderPath)
+eae6320::cResult eae6320::Graphics::SubmitMeshEffectPair(s_meshData i_meshData, const char* const i_shaderPath)
 {
 	
 
 	auto result = Results::Success;
+
 	int index = s_dataBeingSubmittedByApplicationThread->meshEffectIndex;
 
 	if (!(result = eae6320::Graphics::cEffect::Load(i_shaderPath, s_dataBeingSubmittedByApplicationThread->meshEffectData[index].effect)))
 	{
-		EAE6320_ASSERTF(false, "Fuck");
+		EAE6320_ASSERTF(false, "no");
 	}
 
 	if (!(result = eae6320::Graphics::Geometry::Load(i_meshData.i_vertexInputs,
@@ -107,15 +108,13 @@ void eae6320::Graphics::SubmitMeshEffectPair(s_meshData i_meshData, const char* 
 		i_meshData.i_iSize,
 		s_dataBeingSubmittedByApplicationThread->meshEffectData[index].mesh)))
 	{
-		EAE6320_ASSERTF(false, "Fuck");
+		EAE6320_ASSERTF(false, "no");
 	}
 	
 
 	s_dataBeingSubmittedByApplicationThread->meshEffectIndex++;
-	s_dataBeingSubmittedByApplicationThread->meshEffectData[index].effect->IncrementReferenceCount();
-	s_dataBeingSubmittedByApplicationThread->meshEffectData[index].mesh->IncrementReferenceCount();
-	
 
+	return result;
 }
 
 void eae6320::Graphics::SubmitElapsedTime(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_simulationTime)
@@ -288,8 +287,12 @@ eae6320::cResult eae6320::Graphics::CleanUp()
 
 	for (int i = 0; i < 500; i++)
 	{
-		s_dataBeingRenderedByRenderThread->meshEffectData[i].effect->DecrementReferenceCount();
-		s_dataBeingRenderedByRenderThread->meshEffectData[i].mesh->DecrementReferenceCount();
+		if(s_dataBeingRenderedByRenderThread->meshEffectData[i].effect!= nullptr)
+			s_dataBeingRenderedByRenderThread->meshEffectData[i].effect->DecrementReferenceCount();
+
+		if (s_dataBeingRenderedByRenderThread->meshEffectData[i].mesh != nullptr)
+			s_dataBeingRenderedByRenderThread->meshEffectData[i].mesh->DecrementReferenceCount();
+
 		s_dataBeingRenderedByRenderThread->meshEffectData[i].effect = nullptr;
 		s_dataBeingRenderedByRenderThread->meshEffectData[i].mesh = nullptr;
 		
@@ -298,9 +301,12 @@ eae6320::cResult eae6320::Graphics::CleanUp()
 
 	for (int i = 0; i < 500; i++)
 	{
+		if (s_dataBeingSubmittedByApplicationThread->meshEffectData[i].effect != nullptr)
+			s_dataBeingSubmittedByApplicationThread->meshEffectData[i].effect->DecrementReferenceCount();
 
-		s_dataBeingSubmittedByApplicationThread->meshEffectData[i].effect->DecrementReferenceCount();
-		s_dataBeingSubmittedByApplicationThread->meshEffectData[i].mesh->DecrementReferenceCount();
+		if (s_dataBeingSubmittedByApplicationThread->meshEffectData[i].mesh != nullptr)
+			s_dataBeingSubmittedByApplicationThread->meshEffectData[i].mesh->DecrementReferenceCount();
+
 		s_dataBeingSubmittedByApplicationThread->meshEffectData[i].effect = nullptr;
 		s_dataBeingSubmittedByApplicationThread->meshEffectData[i].mesh = nullptr;
 	}
