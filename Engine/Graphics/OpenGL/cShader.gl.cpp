@@ -45,7 +45,7 @@ eae6320::cResult eae6320::Graphics::cShader::Initialize( const std::string& i_pa
 		} );
 
 	EAE6320_ASSERT( ( m_type == eae6320::Graphics::eShaderType::Vertex ) || ( m_type == eae6320::Graphics::eShaderType::Fragment ) );
-	const auto shaderType = ( m_type == eae6320::Graphics::eShaderType::Vertex ) ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER;
+	GLenum shaderType = ( m_type == eae6320::Graphics::eShaderType::Vertex ) ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER;
 
 	// Verify that compiling shaders at run-time is supported
 	{
@@ -59,7 +59,7 @@ eae6320::cResult eae6320::Graphics::cShader::Initialize( const std::string& i_pa
 			return result;
 		}
 	}
-
+	
 	// Generate a shader
 	shaderId = glCreateShader( shaderType );
 	{
