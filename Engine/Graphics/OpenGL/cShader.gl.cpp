@@ -61,7 +61,7 @@ eae6320::cResult eae6320::Graphics::cShader::Initialize( const std::string& i_pa
 	}
 
 	// Generate a shader
-	shaderId = glCreateShader( shaderType );
+	shaderId = glCreateShader(shaderType);
 	{
 		const auto errorCode = glGetError();
 
