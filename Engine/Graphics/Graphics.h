@@ -12,6 +12,9 @@
 
 #include <cstdint>
 #include <Engine/Results/Results.h>
+#include <Engine/Physics/sRigidBodyState.h>
+
+
 #include "Geometry.h"
 #include "cEffect.h"
 
@@ -57,8 +60,8 @@ namespace eae6320
 
 		void SetBackgroundColor(float, float, float, float);
 
-		eae6320::cResult SubmitMeshEffectPair(s_meshData i_meshData, const char* const i_shaderPath);
-
+		eae6320::cResult SubmitGameObject(eae6320::Graphics::Geometry* i_mesh, eae6320::Graphics::cEffect* i_effect, eae6320::Math::cMatrix_transformation i_trans);
+		eae6320::cResult SubmitGameCamera(eae6320::Physics::sRigidBodyState i_trans);
 		// As the class progresses you will add your own functions for submitting data,
 		// but the following is an example (that gets called automatically)
 		// of how the application submits the total elapsed times

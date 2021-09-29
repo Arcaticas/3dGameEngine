@@ -12,7 +12,7 @@
 eae6320::cResult eae6320::Graphics::Geometry::Load(eae6320::Graphics::VertexFormats::sVertex_mesh i_vertexInputs[], uint16_t i_indexArray[], int i_vSize, int i_iSize, Geometry*& o_mesh)
 {
 	auto result = Results::Success;
-	Geometry* newMesh = nullptr;
+	Geometry* newMesh = new Geometry();
 	cScopeGuard scopeGuard([&o_mesh, &result, &newMesh, &i_vertexInputs]
 		{
 			if (result)

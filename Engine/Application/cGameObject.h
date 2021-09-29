@@ -9,22 +9,26 @@ namespace eae6320
 {
 	namespace Application
 	{
+
 		class GameObject 
 		{
-			eae6320::Graphics::cEffect* effect = nullptr;
-			eae6320::Graphics::Geometry* mesh = nullptr;
-			eae6320::Physics::sRigidBodyState* translation;
+			
 
 		public:
-			EAE6320_ASSETS_DECLAREREFERENCECOUNTINGFUNCTIONS();
+			eae6320::Graphics::cEffect* effect = nullptr;
+			eae6320::Graphics::Geometry* mesh = nullptr;
+			eae6320::Physics::sRigidBodyState translation;
 
 			static eae6320::cResult CreateGameObject(eae6320::Graphics::s_meshData i_meshData, const char* const i_shaderPath,Math::sVector i_transform, GameObject*& o_gameObject);
 
-		private:
-			EAE6320_ASSETS_DECLAREREFERENCECOUNT();
-			EAE6320_ASSETS_DECLAREDELETEDREFERENCECOUNTEDFUNCTIONS(GameObject);
+			eae6320::cResult UpdateMesh(eae6320::Graphics::s_meshData i_meshData);
 
-			void SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate);
+			GameObject() = default;
+			~GameObject();
+
+		private:
+
+			
 		};
 	}
 }

@@ -14,6 +14,7 @@
 #include <cstdint>
 #include <Engine/Concurrency/cThread.h>
 #include <Engine/Results/Results.h>
+#include <Engine/Application/cGameObject.h>
 
 #if defined( EAE6320_PLATFORM_WINDOWS )
 	#include <Engine/Windows/Includes.h>
@@ -71,6 +72,7 @@ namespace eae6320
 			//==========
 
 		public:
+			
 
 			// Different platforms have different parameters that get passed to a program's entry point
 			struct sEntryPointParameters

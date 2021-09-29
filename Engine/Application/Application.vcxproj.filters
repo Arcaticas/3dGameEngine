@@ -4,6 +4,7 @@
     <ClCompile Include="iApplication.cpp" />
     <ClCompile Include="Windows\iApplication.win.cpp" />
     <ClCompile Include="cGameObject.cpp" />
+    <ClCompile Include="cCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windows\ExternalLibraries.win.h">
@@ -12,6 +13,7 @@
     <ClInclude Include="iApplication.h" />
     <ClInclude Include="Windows\iApplication.win.h" />
     <ClInclude Include="cGameObject.h" />
+    <ClInclude Include="cCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Windows">

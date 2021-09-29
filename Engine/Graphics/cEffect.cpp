@@ -9,7 +9,7 @@ eae6320::cResult eae6320::Graphics::cEffect::Load(const char* const i_shaderPath
 {
 
 	auto result = Results::Success;
-	cEffect* newEffect = nullptr;
+	cEffect* newEffect = new cEffect();
 	cScopeGuard scopeGuard([&o_effect, &result, &newEffect]
 		{
 			if (result)
@@ -45,7 +45,6 @@ eae6320::cResult eae6320::Graphics::cEffect::Load(const char* const i_shaderPath
 	}
 
 	result = newEffect->Initialize(i_shaderPath);
-
 	return result;
 }
 

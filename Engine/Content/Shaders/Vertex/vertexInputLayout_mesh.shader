@@ -2,7 +2,6 @@
 	This vertex shader is used to create a Direct3D vertex input layout object
 */
 
-#include <Shaders/shaders.inc>
 
 #if defined( EAE6320_PLATFORM_D3D )
 
@@ -36,6 +35,8 @@ void main(
 
 #elif defined( EAE6320_PLATFORM_GL )
 
+
+	#version 420
 // Input
 //======
 

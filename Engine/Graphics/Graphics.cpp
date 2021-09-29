@@ -30,6 +30,7 @@ namespace
 {
 	// Constant buffer object
 	eae6320::Graphics::cConstantBuffer s_constantBuffer_frame(eae6320::Graphics::ConstantBufferTypes::Frame);
+	eae6320::Graphics::cConstantBuffer s_drawBuffer(eae6320::Graphics::ConstantBufferTypes::DrawCall);
 
 	// Submission Data
 	//----------------
@@ -42,6 +43,7 @@ namespace
 		eae6320::Graphics::ConstantBufferFormats::sFrame constantData_frame;
 		eae6320::Graphics::s_colorData backgroundColor;
 		eae6320::Graphics::s_meshEffectPair meshEffectData[500];
+		eae6320::Graphics::ConstantBufferFormats::sDrawCall translationBuffer [500];
 		int meshEffectIndex = 0;
 	};
 	// In our class there will be two copies of the data required to render a frame:
@@ -89,7 +91,7 @@ void eae6320::Graphics::SetBackgroundColor(float i_r, float i_g, float i_b, floa
 	s_dataBeingSubmittedByApplicationThread->backgroundColor.alpha = i_alpha;
 }
 
-eae6320::cResult eae6320::Graphics::SubmitMeshEffectPair(s_meshData i_meshData, const char* const i_shaderPath)
+eae6320::cResult eae6320::Graphics::SubmitGameObject(eae6320::Graphics::Geometry* i_mesh, eae6320::Graphics::cEffect* i_effect, eae6320::Math::cMatrix_transformation i_trans)
 {
 	
 
@@ -97,22 +99,23 @@ eae6320::cResult eae6320::Graphics::SubmitMeshEffectPair(s_meshData i_meshData, 
 
 	int index = s_dataBeingSubmittedByApplicationThread->meshEffectIndex;
 
-	if (!(result = eae6320::Graphics::cEffect::Load(i_shaderPath, s_dataBeingSubmittedByApplicationThread->meshEffectData[index].effect)))
-	{
-		EAE6320_ASSERTF(false, "no");
-	}
-
-	if (!(result = eae6320::Graphics::Geometry::Load(i_meshData.i_vertexInputs,
-		i_meshData.i_indexArray,
-		i_meshData.i_vSize,
-		i_meshData.i_iSize,
-		s_dataBeingSubmittedByApplicationThread->meshEffectData[index].mesh)))
-	{
-		EAE6320_ASSERTF(false, "no");
-	}
-	
-
+	s_dataBeingSubmittedByApplicationThread->meshEffectData[index].mesh = i_mesh;
+	s_dataBeingSubmittedByApplicationThread->meshEffectData[index].effect = i_effect;
+	s_dataBeingSubmittedByApplicationThread->translationBuffer[index].g_transform_localToWorld = i_trans;
 	s_dataBeingSubmittedByApplicationThread->meshEffectIndex++;
+
+	s_dataBeingSubmittedByApplicationThread->meshEffectData[index].mesh->IncrementReferenceCount();
+	s_dataBeingSubmittedByApplicationThread->meshEffectData[index].effect->IncrementReferenceCount();
+
+	return result;
+}
+
+eae6320::cResult eae6320::Graphics::SubmitGameCamera(eae6320::Physics::sRigidBodyState i_trans)
+{
+	auto result = Results::Success;
+
+	s_dataBeingSubmittedByApplicationThread->constantData_frame.g_transform_worldToCamera = eae6320::Math::cMatrix_transformation::CreateWorldToCameraTransform(i_trans.orientation, i_trans.position);
+	s_dataBeingSubmittedByApplicationThread->constantData_frame.g_transform_cameraToProjected = eae6320::Math::cMatrix_transformation::CreateCameraToProjectedTransform_perspective(.78f, 1, .1f, 10);
 
 	return result;
 }
@@ -194,6 +197,9 @@ void eae6320::Graphics::RenderFrame()
 	{
 		// Bind the shading data
 		s_dataBeingRenderedByRenderThread->meshEffectData[i].effect->Draw();
+
+		auto& draw_buffer = s_dataBeingRenderedByRenderThread->translationBuffer[i];
+		s_drawBuffer.Update(&draw_buffer);
 		// Draw the geometry
 		s_dataBeingRenderedByRenderThread->meshEffectData[i].mesh->Draw();
 	}
@@ -211,7 +217,7 @@ void eae6320::Graphics::RenderFrame()
 	{
 		for (int i = 0; i < s_dataBeingRenderedByRenderThread->meshEffectIndex; i++)
 		{
-			uint16_t thing = s_dataBeingRenderedByRenderThread->meshEffectData[i].effect->DecrementReferenceCount();
+			s_dataBeingRenderedByRenderThread->meshEffectData[i].effect->DecrementReferenceCount();
 			s_dataBeingRenderedByRenderThread->meshEffectData[i].mesh->DecrementReferenceCount();
 			
 			s_dataBeingRenderedByRenderThread->meshEffectData[i].effect = nullptr;
@@ -242,6 +248,22 @@ eae6320::cResult eae6320::Graphics::Initialize(const sInitializationParameters& 
 			// There is only a single frame constant buffer that is reused
 			// and so it can be bound at initialization time and never unbound
 			s_constantBuffer_frame.Bind(
+				// In our class both vertex and fragment shaders use per-frame constant data
+				static_cast<uint_fast8_t>(eShaderType::Vertex) | static_cast<uint_fast8_t>(eShaderType::Fragment));
+		}
+		else
+		{
+			EAE6320_ASSERTF(false, "Can't initialize Graphics without frame constant buffer");
+			return result;
+		}
+	}
+
+	{
+		if (result = s_drawBuffer.Initialize())
+		{
+			// There is only a single frame constant buffer that is reused
+			// and so it can be bound at initialization time and never unbound
+			s_drawBuffer.Bind(
 				// In our class both vertex and fragment shaders use per-frame constant data
 				static_cast<uint_fast8_t>(eShaderType::Vertex) | static_cast<uint_fast8_t>(eShaderType::Fragment));
 		}
@@ -314,6 +336,18 @@ eae6320::cResult eae6320::Graphics::CleanUp()
 
 	{
 		const auto result_constantBuffer_frame = s_constantBuffer_frame.CleanUp();
+		if (!result_constantBuffer_frame)
+		{
+			EAE6320_ASSERT(false);
+			if (result)
+			{
+				result = result_constantBuffer_frame;
+			}
+		}
+	}
+
+	{
+		const auto result_constantBuffer_frame = s_drawBuffer.CleanUp();
 		if (!result_constantBuffer_frame)
 		{
 			EAE6320_ASSERT(false);
