@@ -73,6 +73,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Engine\Graphics
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BuildMyGameAssets", "MyGame_\BuildMyGameAssets\BuildMyGameAssets.vcxproj", "{14886634-90D9-4B9C-BA13-570E8DE2154D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshBuilder", "Tools\MeshBuilder\MeshBuilder.vcxproj", "{36AE400D-DB9E-4175-920A-623950F68929}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -289,6 +291,14 @@ Global
 		{14886634-90D9-4B9C-BA13-570E8DE2154D}.Release|x64.Build.0 = Release|x64
 		{14886634-90D9-4B9C-BA13-570E8DE2154D}.Release|x86.ActiveCfg = Release|Win32
 		{14886634-90D9-4B9C-BA13-570E8DE2154D}.Release|x86.Build.0 = Release|Win32
+		{36AE400D-DB9E-4175-920A-623950F68929}.Debug|x64.ActiveCfg = Debug|x64
+		{36AE400D-DB9E-4175-920A-623950F68929}.Debug|x64.Build.0 = Debug|x64
+		{36AE400D-DB9E-4175-920A-623950F68929}.Debug|x86.ActiveCfg = Debug|Win32
+		{36AE400D-DB9E-4175-920A-623950F68929}.Debug|x86.Build.0 = Debug|Win32
+		{36AE400D-DB9E-4175-920A-623950F68929}.Release|x64.ActiveCfg = Release|x64
+		{36AE400D-DB9E-4175-920A-623950F68929}.Release|x64.Build.0 = Release|x64
+		{36AE400D-DB9E-4175-920A-623950F68929}.Release|x86.ActiveCfg = Release|Win32
+		{36AE400D-DB9E-4175-920A-623950F68929}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -321,6 +331,7 @@ Global
 		{B7ED3F7D-BFA1-42C9-9089-C6401FFDE3D4} = {E5C51EF7-81D3-4030-A4CE-0D2D666CEF4F}
 		{65795EBF-1045-4893-8F22-1BDFAD292A20} = {E5C51EF7-81D3-4030-A4CE-0D2D666CEF4F}
 		{14886634-90D9-4B9C-BA13-570E8DE2154D} = {411A65A6-2621-4D50-8D6A-8F12BEE8EA12}
+		{36AE400D-DB9E-4175-920A-623950F68929} = {31B05C03-4BB2-4A0D-B621-B41DA6B0F57E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A89F366F-0B7F-464F-90A8-A4828B273298}

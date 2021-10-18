@@ -1,3 +1,4 @@
-Assignment 4
-Press SPACE to hide mesh
-Press Shift to change mesh effect
+Assignment 5
+Press SPACE to switch mesh
+WASD for camera controls
+Arrow keys for object movement
