@@ -19,7 +19,7 @@ namespace eae6320
 			eae6320::Graphics::Geometry* mesh = nullptr;
 			eae6320::Physics::sRigidBodyState translation;
 
-			static eae6320::cResult CreateGameObject(eae6320::Graphics::s_meshData i_meshData, const char* const i_shaderPath,Math::sVector i_transform, GameObject*& o_gameObject);
+			static eae6320::cResult CreateGameObject(const char* const i_meshPath, const char* const i_shaderPath,Math::sVector i_transform, GameObject*& o_gameObject);
 
 			eae6320::cResult UpdateMesh(eae6320::Graphics::s_meshData i_meshData);
 

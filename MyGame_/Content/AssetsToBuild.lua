@@ -14,4 +14,8 @@ return
 
 		{ path = "Shaders/Vertex/vertexInputLayout_mesh.shader", arguments = { "vertex" } },
 	},
+	meshes =
+	{
+		{ path = "Meshes/MeshOne.mesh"},
+	},
 }

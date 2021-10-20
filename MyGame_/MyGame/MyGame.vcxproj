@@ -60,6 +60,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Content\Meshes\MeshOne.mesh" />
     <None Include="..\Content\Shaders\Fragment\flasher.shader" />
     <None Include="..\Content\Shaders\Fragment\flasher2.shader" />
   </ItemGroup>

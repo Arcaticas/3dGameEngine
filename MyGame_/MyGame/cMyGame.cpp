@@ -127,7 +127,7 @@ void eae6320::cMyGame::UpdateSimulationBasedOnInput()
 	}
 	else
 	{
-		AllGameObjects[0]->UpdateMesh(input1);
+		//AllGameObjects[0]->UpdateMesh(input1);
 	}
 
 	//Object controls
@@ -196,51 +196,11 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 {
 	hide = false;
 	switchEffect = false;
-	
 
-	constexpr int stuff1Size = 5;
-	eae6320::Graphics::VertexFormats::sVertex_mesh stuff1[stuff1Size];
-	{
-		stuff1[0].x = 0.0f;
-		stuff1[0].y = -1.0f;
-		stuff1[0].z = 0.0f;
+	const char* const shaderPath1 = "data/shaders/fragment/flasher.shader";
+	const char* const meshPath1 = "data/meshes/meshone.mesh";
 
-		stuff1[1].x = .5f;
-		stuff1[1].y = 0.0f;
-		stuff1[1].z = 0.0f;
-
-		stuff1[2].x = 1.0f;
-		stuff1[2].y = -1.0f;
-		stuff1[2].z = 0.0f;
-
-		stuff1[3].x = -.5f;
-		stuff1[3].y = 0.0f;
-		stuff1[3].z = 0.0f;
-
-		stuff1[4].x = -1.0f;
-		stuff1[4].y = -1.0f;
-		stuff1[4].z = 0.0f;
-	}
-	const auto stuff2Size = 6;
-	uint16_t stuff2[stuff2Size];
-	{
-		stuff2[0] = 0;
-		stuff2[1] = 1;
-		stuff2[2] = 2;
-		stuff2[3] = 0;
-		stuff2[4] = 4;
-		stuff2[5] = 3;
-	}
-
-	eae6320::Graphics::s_meshData input1;
-	input1.i_vertexInputs = stuff1;
-	input1.i_vSize = stuff1Size;
-	input1.i_indexArray = stuff2;
-	input1.i_iSize = stuff2Size;
-
-	const char* const shaderPath1 = "data/Shaders/Fragment/flasher.shader";
-
-	eae6320::Application::GameObject::CreateGameObject(input1, shaderPath1, Math::sVector(), AllGameObjects[0]);
+	eae6320::Application::GameObject::CreateGameObject(meshPath1, shaderPath1, Math::sVector(), AllGameObjects[0]);
 	
 	gameCam = eae6320::Application::Camera::Camera(Math::cQuaternion(), Math::sVector(0, 0, 9));
 

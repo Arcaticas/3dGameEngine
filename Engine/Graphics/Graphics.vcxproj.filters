@@ -57,6 +57,7 @@
     <ClCompile Include="OpenGL\cRenderer.gl.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="cMeshParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windows\ExternalLibraries.win.h">
@@ -80,6 +81,7 @@
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="cEffect.h" />
     <ClInclude Include="cRenderer.h" />
+    <ClInclude Include="cMeshParser.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Windows">

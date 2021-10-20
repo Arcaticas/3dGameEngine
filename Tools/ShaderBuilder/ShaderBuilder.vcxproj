@@ -44,6 +44,9 @@
     <ProjectReference Include="..\..\Engine\Platform\Platform.vcxproj">
       <Project>{7462d3a7-9936-442e-877c-89efda754596}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Engine\Results\Results.vcxproj">
+      <Project>{5003f315-b5d5-48ab-ba3f-1cb0dec8c213}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Engine\ScopeGuard\ScopeGuard.vcxproj">
       <Project>{b7ed3f7d-bfa1-42c9-9089-c6401ffde3d4}</Project>
     </ProjectReference>

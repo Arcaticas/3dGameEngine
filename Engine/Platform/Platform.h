@@ -78,6 +78,7 @@ namespace eae6320
 		cResult CopyFile( const char* const i_path_source, const char* const i_path_target,
 			const bool i_shouldFunctionFailIfTargetAlreadyExists = false, const bool i_shouldTargetFileTimeBeModified = false,
 			std::string* o_errorMessage = nullptr );
+
 		cResult CreateDirectoryIfItDoesntExist( const std::string& i_filePath, std::string* const o_errorMessage = nullptr );
 		bool DoesFileExist( const char* const i_path, std::string* const o_errorMessage = nullptr );
 		cResult ExecuteCommand( const char* const i_command, int* const o_exitCode = nullptr, std::string* const o_errorMessage = nullptr );
