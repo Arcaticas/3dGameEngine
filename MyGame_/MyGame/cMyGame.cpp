@@ -202,7 +202,7 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 	const char* const shaderPath1 = "data/shaders/fragment/flasher.shader";
 	const char* const meshPath1 = "data/meshes/meshone.mesh";
-	const char* const meshPath2 = "data/meshes/test2.mesh";
+	const char* const meshPath2 = "data/meshes/test3.mesh";
 	const char* const meshPath3 = "data/meshes/test4.mesh";
 
 	eae6320::Application::GameObject::CreateGameObject(meshPath1, shaderPath1, Math::sVector(), AllGameObjects[0]);
