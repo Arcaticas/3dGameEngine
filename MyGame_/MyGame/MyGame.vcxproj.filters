@@ -53,5 +53,17 @@
     <None Include="..\Content\Meshes\MeshOne.mesh">
       <Filter>Resource Files\Meshes</Filter>
     </None>
+    <None Include="..\Content\Meshes\test1.mesh">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
+    <None Include="..\Content\Meshes\test2.mesh">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
+    <None Include="..\Content\Meshes\test3.mesh">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
+    <None Include="..\Content\Meshes\test4.mesh">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
   </ItemGroup>
 </Project>

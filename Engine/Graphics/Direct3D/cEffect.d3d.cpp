@@ -27,14 +27,14 @@ eae6320::cResult eae6320::Graphics::cEffect::InitializeShadingData(const char* c
 		constexpr auto renderStateBits = []
 		{
 			uint8_t renderStateBits = 0;
-
+			
 			eae6320::Graphics::RenderStates::DisableAlphaTransparency(renderStateBits);
-			eae6320::Graphics::RenderStates::DisableDepthTesting(renderStateBits);
-			eae6320::Graphics::RenderStates::DisableDepthWriting(renderStateBits);
+			eae6320::Graphics::RenderStates::EnableDepthTesting(renderStateBits);
+			eae6320::Graphics::RenderStates::EnableDepthWriting(renderStateBits);
 			eae6320::Graphics::RenderStates::DisableDrawingBothTriangleSides(renderStateBits);
-
-			return renderStateBits;
-		}();
+												
+			return renderStateBits;				
+		}();									
 		if (!(result = m_renderState.Initialize(renderStateBits)))
 		{
 			EAE6320_ASSERTF(false, "Can't initialize shading data without render state");

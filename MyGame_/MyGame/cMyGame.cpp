@@ -32,11 +32,14 @@ void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_s
 	
 	eae6320::Graphics::SetBackgroundColor(0, .5, .5, 1.0);
 	
-
-	eae6320::Graphics::SubmitGameObject(
-		AllGameObjects[0]->mesh,
-		AllGameObjects[0]->effect,
-		AllGameObjects[0]->translation.PredictFutureTransform(i_elapsedSecondCount_sinceLastSimulationUpdate));
+	for (int i = 0; i < 3; i++)
+	{
+		eae6320::Graphics::SubmitGameObject(
+			AllGameObjects[i]->mesh,
+			AllGameObjects[i]->effect,
+			AllGameObjects[i]->translation.PredictFutureTransform(i_elapsedSecondCount_sinceLastSimulationUpdate));
+	}
+	
 	
 	eae6320::Graphics::SubmitGameCamera(gameCam.translation);
 }
@@ -199,8 +202,12 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 
 	const char* const shaderPath1 = "data/shaders/fragment/flasher.shader";
 	const char* const meshPath1 = "data/meshes/meshone.mesh";
+	const char* const meshPath2 = "data/meshes/test2.mesh";
+	const char* const meshPath3 = "data/meshes/test4.mesh";
 
 	eae6320::Application::GameObject::CreateGameObject(meshPath1, shaderPath1, Math::sVector(), AllGameObjects[0]);
+	eae6320::Application::GameObject::CreateGameObject(meshPath2, shaderPath1, Math::sVector(), AllGameObjects[1]);
+	eae6320::Application::GameObject::CreateGameObject(meshPath3, shaderPath1, Math::sVector(3,0,0), AllGameObjects[2]);
 	
 	gameCam = eae6320::Application::Camera::Camera(Math::cQuaternion(), Math::sVector(0, 0, 9));
 

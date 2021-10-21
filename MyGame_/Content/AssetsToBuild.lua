@@ -17,5 +17,9 @@ return
 	meshes =
 	{
 		{ path = "Meshes/MeshOne.mesh"},
+		{ path = "Meshes/test1.mesh"},
+		{ path = "Meshes/test2.mesh"},
+		{ path = "Meshes/test3.mesh"},
+		{ path = "Meshes/test4.mesh"},
 	},
 }

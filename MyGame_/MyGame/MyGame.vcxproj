@@ -61,6 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Content\Meshes\MeshOne.mesh" />
+    <None Include="..\Content\Meshes\test1.mesh" />
+    <None Include="..\Content\Meshes\test2.mesh" />
+    <None Include="..\Content\Meshes\test3.mesh" />
+    <None Include="..\Content\Meshes\test4.mesh" />
     <None Include="..\Content\Shaders\Fragment\flasher.shader" />
     <None Include="..\Content\Shaders\Fragment\flasher2.shader" />
   </ItemGroup>
