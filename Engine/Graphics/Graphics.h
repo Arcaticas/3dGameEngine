@@ -43,8 +43,8 @@ namespace eae6320
 		{
 			eae6320::Graphics::VertexFormats::sVertex_mesh* i_vertexInputs;
 			uint16_t* i_indexArray;
-			int i_vSize;
-			int i_iSize;
+			uint16_t i_vSize;
+			uint16_t i_iSize;
 		};
 
 		struct s_meshEffectPair
