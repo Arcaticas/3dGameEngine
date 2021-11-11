@@ -11,7 +11,6 @@ eae6320::cResult eae6320::Application::GameObject::CreateGameObject(const char* 
 
 
 
-
 	//Parses mesh data from file
 	eae6320::Graphics::s_meshData* meshData = new eae6320::Graphics::s_meshData;
 	eae6320::Platform::sDataFromFile binaryData;
@@ -30,7 +29,6 @@ eae6320::cResult eae6320::Application::GameObject::CreateGameObject(const char* 
 	//Then index array
 	currentOffset += sizeof(meshData->i_vertexInputs[0]) * meshData->i_vSize;
 	meshData->i_indexArray = reinterpret_cast<uint16_t*>(currentOffset);
-
 
 
 

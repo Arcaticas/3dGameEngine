@@ -10,6 +10,7 @@
 #include<Engine/Application/cGameObject.h>
 #include <Engine/Application/cCamera.h>
 #include <Engine/Math/cMatrix_transformation.h>
+#include <Engine/Sound/Sound.h>
 
 // Inherited Implementation
 //=========================
@@ -126,7 +127,7 @@ void eae6320::cMyGame::UpdateSimulationBasedOnInput()
 
 	if (UserInput::IsKeyPressed(UserInput::KeyCodes::Space))
 	{
-		AllGameObjects[0]->UpdateMesh(input2);
+		//eae6320::Sound::Play();
 	}
 	else
 	{

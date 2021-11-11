@@ -22,4 +22,8 @@ return
 		{ path = "Meshes/test3.mesh"},
 		{ path = "Meshes/test4.mesh"},
 	},
+	sounds =
+	{
+		{path = "Sounds/test.wav"}
+	}
 }

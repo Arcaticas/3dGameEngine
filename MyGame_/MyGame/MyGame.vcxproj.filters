@@ -37,6 +37,9 @@
     <Filter Include="Resource Files\Meshes">
       <UniqueIdentifier>{7036006d-57e8-4ec3-bf0d-5a841f8feca9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Sounds">
+      <UniqueIdentifier>{d5a2db96-5d62-4f30-ba21-7b920d4cd071}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource Files\MyGame.rc">
@@ -65,5 +68,10 @@
     <None Include="..\Content\Meshes\test4.mesh">
       <Filter>Resource Files\Meshes</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\Content\Sounds\test.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
   </ItemGroup>
 </Project>

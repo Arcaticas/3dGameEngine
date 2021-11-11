@@ -68,6 +68,9 @@
     <None Include="..\Content\Shaders\Fragment\flasher.shader" />
     <None Include="..\Content\Shaders\Fragment\flasher2.shader" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\Content\Sounds\test.wav" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{be818602-7cbd-469a-b778-bbb2157f5ebb}</ProjectGuid>
