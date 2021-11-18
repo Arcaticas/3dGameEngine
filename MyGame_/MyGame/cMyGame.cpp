@@ -127,11 +127,16 @@ void eae6320::cMyGame::UpdateSimulationBasedOnInput()
 
 	if (UserInput::IsKeyPressed(UserInput::KeyCodes::Space))
 	{
-		//eae6320::Sound::Play();
+		eae6320::Sound::Play("data/sounds/background.wav");
 	}
 	else
 	{
 		//AllGameObjects[0]->UpdateMesh(input1);
+	}
+
+	if (UserInput::IsKeyPressed(UserInput::KeyCodes::Alt))
+	{
+		eae6320::Sound::StopAllSound();
 	}
 
 	//Object controls
@@ -211,6 +216,8 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 	eae6320::Application::GameObject::CreateGameObject(meshPath3, shaderPath1, Math::sVector(3,0,0), AllGameObjects[2]);
 	
 	gameCam = eae6320::Application::Camera::Camera(Math::cQuaternion(), Math::sVector(0, 0, 9));
+
+	
 
 	return Results::Success;
 }

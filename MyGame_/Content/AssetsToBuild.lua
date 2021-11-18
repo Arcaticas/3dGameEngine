@@ -24,6 +24,7 @@ return
 	},
 	sounds =
 	{
-		{path = "Sounds/test.wav"}
+		{path = "Sounds/test.wav"},
+		{path = "Sounds/background.wav"}
 	}
 }
