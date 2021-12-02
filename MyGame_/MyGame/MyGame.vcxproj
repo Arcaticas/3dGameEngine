@@ -68,6 +68,7 @@
     <None Include="..\Content\Meshes\test2.mesh" />
     <None Include="..\Content\Meshes\test3.mesh" />
     <None Include="..\Content\Meshes\test4.mesh" />
+    <None Include="..\Content\Physics\Player1.lua" />
     <None Include="..\Content\Shaders\Fragment\flasher.shader" />
     <None Include="..\Content\Shaders\Fragment\flasher2.shader" />
   </ItemGroup>

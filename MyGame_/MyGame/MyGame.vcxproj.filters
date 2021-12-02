@@ -40,6 +40,9 @@
     <Filter Include="Resource Files\Sounds">
       <UniqueIdentifier>{d5a2db96-5d62-4f30-ba21-7b920d4cd071}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Physics">
+      <UniqueIdentifier>{c5d54cc3-32ba-48ee-8826-7f9d3ea6d078}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource Files\MyGame.rc">
@@ -67,6 +70,9 @@
     </None>
     <None Include="..\Content\Meshes\test4.mesh">
       <Filter>Resource Files\Meshes</Filter>
+    </None>
+    <None Include="..\Content\Physics\Player1.lua">
+      <Filter>Resource Files\Physics</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

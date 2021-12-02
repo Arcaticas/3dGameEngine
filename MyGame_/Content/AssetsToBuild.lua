@@ -26,5 +26,9 @@ return
 	{
 		{path = "Sounds/test.wav"},
 		{path = "Sounds/background.wav"}
+	},
+	physics =
+	{
+		{path = "Physics/Player1.lua"},
 	}
 }

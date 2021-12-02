@@ -104,7 +104,7 @@ namespace eae6320
 			// Data
 			//=====
 
-		private:
+		
 
 			// Storage is column-major; see notes at the top of the file
 			float m_00 = 1.0f, m_10 = 0.0f, m_20 = 0.0f, m_30 = 0.0f,
