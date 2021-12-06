@@ -67,16 +67,6 @@ namespace
 
 
 	eae6320::Graphics::cRenderer RenderData;
-
-	// Geometry Data
-	//--------------
-
-
-
-	// Shading Data
-	//-------------
-
-
 }
 
 
@@ -115,7 +105,7 @@ eae6320::cResult eae6320::Graphics::SubmitGameCamera(eae6320::Physics::sRigidBod
 	auto result = Results::Success;
 
 	s_dataBeingSubmittedByApplicationThread->constantData_frame.g_transform_worldToCamera = eae6320::Math::cMatrix_transformation::CreateWorldToCameraTransform(i_trans.orientation, i_trans.position);
-	s_dataBeingSubmittedByApplicationThread->constantData_frame.g_transform_cameraToProjected = eae6320::Math::cMatrix_transformation::CreateCameraToProjectedTransform_perspective(.78f, 1, .1f, 10);
+	s_dataBeingSubmittedByApplicationThread->constantData_frame.g_transform_cameraToProjected = eae6320::Math::cMatrix_transformation::CreateCameraToProjectedTransform_perspective(.78f, 1, .1f, 100);
 
 	return result;
 }

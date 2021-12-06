@@ -5,6 +5,8 @@
 #include <Engine/Graphics/Geometry.h>
 #include <Engine/Graphics/Graphics.h>
 #include <Engine/Physics/sRigidBodyState.h>
+#include <Engine/Collision/Collision.h>
+
 namespace eae6320
 {
 	namespace Application
@@ -17,6 +19,7 @@ namespace eae6320
 		public:
 			eae6320::Graphics::cEffect* effect = nullptr;
 			eae6320::Graphics::Geometry* mesh = nullptr;
+			eae6320::Collision::cCollider* collider = nullptr;
 			eae6320::Physics::sRigidBodyState translation;
 
 			static eae6320::cResult CreateGameObject(const char* const i_meshPath, const char* const i_shaderPath,Math::sVector i_transform, GameObject*& o_gameObject);

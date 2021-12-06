@@ -361,7 +361,14 @@ eae6320::cResult eae6320::Application::iApplication::Initialize_engine()
 			return result;
 		}
 	}
-
+	//Collision
+	{
+		if (!(result = eae6320::Collision::Initialize()))
+		{
+			EAE6320_ASSERTF(false, "Collsion fucked up init");
+			return result;
+		}
+	}
 	return result;
 }
 

@@ -43,6 +43,9 @@
     <ProjectReference Include="..\..\Engine\Asserts\Asserts.vcxproj">
       <Project>{464a6551-fca9-4027-bd9e-2b26914782ab}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Engine\Collision\Collision.vcxproj">
+      <Project>{83bfa209-c74b-41eb-a6a5-1c779541a57a}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Engine\Graphics\Graphics.vcxproj">
       <Project>{65795ebf-1045-4893-8f22-1bdfad292a20}</Project>
     </ProjectReference>
@@ -63,8 +66,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Content\Meshes\large_square.mesh" />
     <None Include="..\Content\Meshes\MeshOne.mesh" />
-    <None Include="..\Content\Meshes\test1.mesh" />
+    <None Include="..\Content\Meshes\small_square.mesh" />
     <None Include="..\Content\Meshes\test2.mesh" />
     <None Include="..\Content\Meshes\test3.mesh" />
     <None Include="..\Content\Meshes\test4.mesh" />

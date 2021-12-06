@@ -59,9 +59,6 @@
     <None Include="..\Content\Meshes\MeshOne.mesh">
       <Filter>Resource Files\Meshes</Filter>
     </None>
-    <None Include="..\Content\Meshes\test1.mesh">
-      <Filter>Resource Files\Meshes</Filter>
-    </None>
     <None Include="..\Content\Meshes\test2.mesh">
       <Filter>Resource Files\Meshes</Filter>
     </None>
@@ -73,6 +70,12 @@
     </None>
     <None Include="..\Content\Physics\Player1.lua">
       <Filter>Resource Files\Physics</Filter>
+    </None>
+    <None Include="..\Content\Meshes\large_square.mesh">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
+    <None Include="..\Content\Meshes\small_square.mesh">
+      <Filter>Resource Files\Meshes</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

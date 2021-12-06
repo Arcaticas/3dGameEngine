@@ -11,20 +11,22 @@
 #include <Engine/Application/cCamera.h>
 #include <Engine/Math/cMatrix_transformation.h>
 #include <Engine/Sound/Sound.h>
-
-// Inherited Implementation
-//=========================
-
-// Run
-//----
-
-bool hide;
-bool switchEffect;
+#include <Engine/Time/Time.h>
+#include <Engine/Collision/Collision.h>
 
 eae6320::Application::Camera gameCam;
 eae6320::Application::GameObject* AllGameObjects[500];
-uint16_t GameObjectCount;
+eae6320::Application::GameObject* Background;
+uint16_t GameObjectCount = 0;
 
+void SpawnBall(eae6320::Math::sVector i_vector)
+{
+	eae6320::Application::GameObject::CreateGameObject("data/meshes/test1.mesh", "data/shaders/fragment/flasher.shader", i_vector, AllGameObjects[GameObjectCount]);
+	
+	AllGameObjects[GameObjectCount]->translation.acceleration = eae6320::Math::sVector(0, 0, .5f);
+
+	GameObjectCount++;
+}
 
 void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate)
 {
@@ -32,8 +34,13 @@ void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_s
 
 	
 	eae6320::Graphics::SetBackgroundColor(0, .5, .5, 1.0);
-	
-	for (int i = 0; i < 3; i++)
+	eae6320::Graphics::SubmitGameObject(
+		Background->mesh,
+		Background->effect,
+		Background->translation.PredictFutureTransform(i_elapsedSecondCount_sinceLastSimulationUpdate)
+	);
+
+	for (int i = 0; i < GameObjectCount; i++)
 	{
 		eae6320::Graphics::SubmitGameObject(
 			AllGameObjects[i]->mesh,
@@ -48,134 +55,49 @@ void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_s
 
 void eae6320::cMyGame::UpdateSimulationBasedOnTime(const float i_elapsedSecondCount_sinceLastUpdate)
 {
-	AllGameObjects[0]->translation.Update(i_elapsedSecondCount_sinceLastUpdate);
+	srand((unsigned int)eae6320::Time::GetCurrentSystemTimeTickCount());
+
+	for (int i = 0; i < GameObjectCount; i++)
+	{
+		AllGameObjects[i]->translation.Update(i_elapsedSecondCount_sinceLastUpdate);
+		const double time = fmod(eae6320::Time::ConvertTicksToSeconds(eae6320::Time::GetCurrentSystemTimeTickCount()), i);
+
+		
+		if ((time > 0.0 && time < .06) && AllGameObjects[i]->translation.position.z > 10)
+		{
+			AllGameObjects[i]->translation.position.x = -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - -3)));
+			AllGameObjects[i]->translation.position.y = -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - -3)));
+			AllGameObjects[i]->translation.position.z = -5;
+		}
+	}
 	gameCam.translation.Update(i_elapsedSecondCount_sinceLastUpdate);
 }
 
 void eae6320::cMyGame::UpdateSimulationBasedOnInput()
 {
-	constexpr int stuff1Size = 5;
-	eae6320::Graphics::VertexFormats::sVertex_mesh stuff1[stuff1Size];
-	{
-		stuff1[0].x = 0.0f;
-		stuff1[0].y = -1.0f;
-		stuff1[0].z = 0.0f;
-
-		stuff1[1].x = .5f;
-		stuff1[1].y = 0.0f;
-		stuff1[1].z = 0.0f;
-
-		stuff1[2].x = 1.0f;
-		stuff1[2].y = -1.0f;
-		stuff1[2].z = 0.0f;
-
-		stuff1[3].x = -.5f;
-		stuff1[3].y = 0.0f;
-		stuff1[3].z = 0.0f;
-
-		stuff1[4].x = -1.0f;
-		stuff1[4].y = -1.0f;
-		stuff1[4].z = 0.0f;
-	}
-	const auto stuff2Size = 6;
-	uint16_t stuff2[stuff2Size];
-	{
-		stuff2[0] = 0;
-		stuff2[1] = 1;
-		stuff2[2] = 2;
-		stuff2[3] = 0;
-		stuff2[4] = 4;
-		stuff2[5] = 3;
-	}
-
-	eae6320::Graphics::s_meshData input1;
-	input1.i_vertexInputs = stuff1;
-	input1.i_vSize = stuff1Size;
-	input1.i_indexArray = stuff2;
-	input1.i_iSize = stuff2Size;
-
-	constexpr int stuff3Size = 3;
-	eae6320::Graphics::VertexFormats::sVertex_mesh stuff3[stuff3Size];
-	{
-		stuff3[0].x = 0.0f;
-		stuff3[0].y = 1.0f;
-		stuff3[0].z = 0.0f;
-
-		stuff3[1].x = .5f;
-		stuff3[1].y = 0.0f;
-		stuff3[1].z = 0.0f;
-
-		stuff3[2].x = -.5f;
-		stuff3[2].y = 0.0f;
-		stuff3[2].z = 0.0f;
-
-	}
-	const auto stuff4Size = 6;
-	uint16_t stuff4[stuff4Size];
-	{
-		stuff4[0] = 0;
-		stuff4[1] = 1;
-		stuff4[2] = 2;
-
-	}
-
-	eae6320::Graphics::s_meshData input2;
-	input2.i_vertexInputs = stuff3;
-	input2.i_vSize = stuff3Size;
-	input2.i_indexArray = stuff4;
-	input2.i_iSize = stuff4Size;
+	
 
 	if (UserInput::IsKeyPressed(UserInput::KeyCodes::Space))
 	{
 		eae6320::Sound::Play("data/sounds/background.wav");
 	}
-	else
-	{
-		//AllGameObjects[0]->UpdateMesh(input1);
-	}
 
-	if (UserInput::IsKeyPressed(UserInput::KeyCodes::Alt))
-	{
-		eae6320::Sound::StopAllSound();
-	}
-
-	//Object controls
-	if (UserInput::IsKeyPressed(UserInput::KeyCodes::Up))
-	{
-		AllGameObjects[0]->translation.velocity = Math::sVector(0, 1, 0);
-	}
-	else if (UserInput::IsKeyPressed(UserInput::KeyCodes::Down))
-	{
-		AllGameObjects[0]->translation.velocity = Math::sVector(0, -1, 0);
-	}
-	else if (UserInput::IsKeyPressed(UserInput::KeyCodes::Right))
-	{
-		AllGameObjects[0]->translation.velocity = Math::sVector(1, 0, 0);
-	}
-	else if (UserInput::IsKeyPressed(UserInput::KeyCodes::Left))
-	{
-		AllGameObjects[0]->translation.velocity = Math::sVector(-1, 0, 0);
-	}
-	else
-	{
-		AllGameObjects[0]->translation.velocity = Math::sVector(0, 0, 0);
-	}
 	//Camera Controls
-	if (UserInput::IsKeyPressed('W'))
+	if (UserInput::IsKeyPressed('W') && gameCam.translation.position.y < 3)
 	{
-		gameCam.translation.velocity = Math::sVector(0, 0, -1);
+		gameCam.translation.velocity = Math::sVector(0, 3, 0);
 	}
-	else if (UserInput::IsKeyPressed('S'))
+	else if (UserInput::IsKeyPressed('S') && gameCam.translation.position.y > -3)
 	{
-		gameCam.translation.velocity = Math::sVector(0, 0, 1);
+		gameCam.translation.velocity = Math::sVector(0, -3, 0);
 	}
-	else if (UserInput::IsKeyPressed('D'))
+	else if (UserInput::IsKeyPressed('D') && gameCam.translation.position.x < 3)
 	{
-		gameCam.translation.velocity = Math::sVector(1, 0, 0);
+		gameCam.translation.velocity = Math::sVector(3, 0, 0);
 	}
-	else if (UserInput::IsKeyPressed('A'))
+	else if (UserInput::IsKeyPressed('A') && gameCam.translation.position.x > -3)
 	{
-		gameCam.translation.velocity = Math::sVector(-1, 0, 0);
+		gameCam.translation.velocity = Math::sVector(-3, 0, 0);
 	}
 	else
 	{
@@ -194,8 +116,6 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 		const auto result = Exit( EXIT_SUCCESS );
 		EAE6320_ASSERT( result );
 	}
-
-	
 }
 
 // Initialize / Clean Up
@@ -203,27 +123,40 @@ void eae6320::cMyGame::UpdateBasedOnInput()
 
 eae6320::cResult eae6320::cMyGame::Initialize()
 {
-	hide = false;
-	switchEffect = false;
 
 	const char* const shaderPath1 = "data/shaders/fragment/flasher.shader";
+	const char* const shaderPath2 = "data/shaders/fragment/flasher2.shader";
+
 	const char* const meshPath1 = "data/meshes/meshone.mesh";
-	const char* const meshPath2 = "data/meshes/test3.mesh";
+	const char* const meshPath2 = "data/meshes/small_square.mesh";
 	const char* const meshPath3 = "data/meshes/test4.mesh";
+	const char* const meshPath4 = "data/meshes/large_square.mesh";
 
-	eae6320::Application::GameObject::CreateGameObject(meshPath1, shaderPath1, Math::sVector(), AllGameObjects[0]);
-	eae6320::Application::GameObject::CreateGameObject(meshPath2, shaderPath1, Math::sVector(), AllGameObjects[1]);
-	eae6320::Application::GameObject::CreateGameObject(meshPath3, shaderPath1, Math::sVector(3,0,0), AllGameObjects[2]);
+	eae6320::Application::GameObject::CreateGameObject(meshPath4, shaderPath2, Math::sVector(0, 0, -10), Background);
 	
-	gameCam = eae6320::Application::Camera::Camera(Math::cQuaternion(), Math::sVector(0, 0, 9));
+	int numberOfObjects = 10;
+
+	for (int i = 0; i < numberOfObjects; i++)
+	{
+		SpawnBall(Math::sVector(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - -3))),
+			-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - -3))), -5));
+
+		eae6320::Collision::cCollider::CreateCollider(&AllGameObjects[i]->translation, Math::sVector(), true, AllGameObjects[i]->collider);
+	}
+	
 
 	
+	gameCam = eae6320::Application::Camera::Camera(Math::cQuaternion(), Math::sVector(0, 0, 10));
+	eae6320::Collision::cCollider::CreateCollider(&gameCam.translation, Math::sVector(), true, gameCam.collider);
+	
+	gameCam.collider->ListenToCollision();
 
 	return Results::Success;
 }
 
 eae6320::cResult eae6320::cMyGame::CleanUp()
 {
+	delete Background;
 	for (int i = 0; i < 500; i++)
 	{
 		if (AllGameObjects[i] != nullptr)
@@ -231,3 +164,4 @@ eae6320::cResult eae6320::cMyGame::CleanUp()
 	}
 	return Results::Success;
 }
+
