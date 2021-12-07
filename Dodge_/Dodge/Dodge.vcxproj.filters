@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Dodge.cpp" />
+    <ClCompile Include="EntryPoint.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Dodge.h" />
+    <ClInclude Include="Resource Files\Resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource Files\targetver.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource Files\vsDefault_large.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource Files\vsDefault_small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource Files\eaeAlien.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource Files\eaeGamePad.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{d70d5465-923b-4c04-85a0-96c2ed9b95ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{e7f9a9ce-9656-4836-b672-5375c7a9bb47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Meshes">
+      <UniqueIdentifier>{7036006d-57e8-4ec3-bf0d-5a841f8feca9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Sounds">
+      <UniqueIdentifier>{d5a2db96-5d62-4f30-ba21-7b920d4cd071}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Physics">
+      <UniqueIdentifier>{c5d54cc3-32ba-48ee-8826-7f9d3ea6d078}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource Files\Dodge.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Content\Shaders\Fragment\flasher.shader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Content\Shaders\Fragment\flasher2.shader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Content\Meshes\MeshOne.mesh">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
+    <None Include="..\Content\Meshes\test2.mesh">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
+    <None Include="..\Content\Meshes\test3.mesh">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
+    <None Include="..\Content\Meshes\test4.mesh">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
+    <None Include="..\Content\Physics\Player1.lua">
+      <Filter>Resource Files\Physics</Filter>
+    </None>
+    <None Include="..\Content\Meshes\large_square.mesh">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
+    <None Include="..\Content\Meshes\small_square.mesh">
+      <Filter>Resource Files\Meshes</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\Content\Sounds\test.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
+    <Media Include="..\Content\Sounds\background.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
+    <Media Include="..\Content\Sounds\smb_mariodie.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
+  </ItemGroup>
+</Project>

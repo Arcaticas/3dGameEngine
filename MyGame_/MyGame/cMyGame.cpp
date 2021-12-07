@@ -26,7 +26,7 @@ uint16_t timesHit = 0;
 
 void SpawnBall(eae6320::Math::sVector i_vector)
 {
-	eae6320::Application::GameObject::CreateGameObject("data/meshes/test1.mesh", "data/shaders/fragment/flasher.shader", i_vector, AllGameObjects[GameObjectCount]);
+	eae6320::Application::GameObject::CreateGameObject("data/meshes/small_square.mesh", "data/shaders/fragment/flasher.shader", i_vector, AllGameObjects[GameObjectCount]);
 	
 	AllGameObjects[GameObjectCount]->translation.acceleration = eae6320::Math::sVector(0, 0, .5f);
 
