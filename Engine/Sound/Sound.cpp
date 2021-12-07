@@ -279,6 +279,19 @@ eae6320::cResult eae6320::Sound::Play(const char* i_wavPath)
 	return result;
 }
 
+eae6320::cResult eae6320::Sound::PlaySync(const char* i_wavPath)
+{
+	auto result = Results::Success;
+
+	size_t newsize = strlen(i_wavPath) + 1;
+	wchar_t* wcstring = new wchar_t[newsize];
+	size_t convertedChars = 0;
+	mbstowcs_s(&convertedChars, wcstring, newsize, i_wavPath, _TRUNCATE);
+
+	PlaySound(wcstring, NULL, SND_FILENAME);
+	return result;
+}
+
 eae6320::cResult eae6320::Sound::PlayLoop(const char* i_wavPath)
 {
 	auto result = Results::Success;

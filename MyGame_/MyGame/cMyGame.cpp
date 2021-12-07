@@ -14,10 +14,15 @@
 #include <Engine/Time/Time.h>
 #include <Engine/Collision/Collision.h>
 
+#include<Windows.h>
+
 eae6320::Application::Camera gameCam;
 eae6320::Application::GameObject* AllGameObjects[500];
 eae6320::Application::GameObject* Background;
 uint16_t GameObjectCount = 0;
+uint16_t timesHit = 0;
+
+
 
 void SpawnBall(eae6320::Math::sVector i_vector)
 {
@@ -26,6 +31,18 @@ void SpawnBall(eae6320::Math::sVector i_vector)
 	AllGameObjects[GameObjectCount]->translation.acceleration = eae6320::Math::sVector(0, 0, .5f);
 
 	GameObjectCount++;
+}
+
+void eae6320::cMyGame::ResolveCollision(eae6320::Collision::sCollision i_coll)
+{
+	eae6320::Sound::Play("data/sounds/test.wav");
+
+	i_coll.colliderB->rigidbody->position.z = -5;
+	srand((int)i_coll.timeSeparation);
+	i_coll.colliderB->rigidbody->position.x = -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - -3)));
+	i_coll.colliderB->rigidbody->position.y = -3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - -3)));
+	timesHit++;
+	
 }
 
 void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate)
@@ -55,11 +72,14 @@ void eae6320::cMyGame::SubmitDataToBeRendered(const float i_elapsedSecondCount_s
 
 void eae6320::cMyGame::UpdateSimulationBasedOnTime(const float i_elapsedSecondCount_sinceLastUpdate)
 {
+
+	
+
 	srand((unsigned int)eae6320::Time::GetCurrentSystemTimeTickCount());
 
 	for (int i = 0; i < GameObjectCount; i++)
 	{
-		AllGameObjects[i]->translation.Update(i_elapsedSecondCount_sinceLastUpdate);
+		//AllGameObjects[i]->translation.Update(i_elapsedSecondCount_sinceLastUpdate);
 		const double time = fmod(eae6320::Time::ConvertTicksToSeconds(eae6320::Time::GetCurrentSystemTimeTickCount()), i);
 
 		
@@ -71,6 +91,14 @@ void eae6320::cMyGame::UpdateSimulationBasedOnTime(const float i_elapsedSecondCo
 		}
 	}
 	gameCam.translation.Update(i_elapsedSecondCount_sinceLastUpdate);
+	eae6320::Collision::UpdateCollisions(i_elapsedSecondCount_sinceLastUpdate);
+
+	if (timesHit >= 3)
+	{
+		eae6320::Sound::PlaySync("data/sounds/smb_mariodie.wav");
+		eae6320::Application::iApplication::SetSimulationRate(0);
+		
+	}
 }
 
 void eae6320::cMyGame::UpdateSimulationBasedOnInput()
@@ -141,15 +169,15 @@ eae6320::cResult eae6320::cMyGame::Initialize()
 		SpawnBall(Math::sVector(-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - -3))),
 			-3 + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - -3))), -5));
 
-		eae6320::Collision::cCollider::CreateCollider(&AllGameObjects[i]->translation, Math::sVector(), true, AllGameObjects[i]->collider);
+		eae6320::Collision::cCollider::CreateCollider(&AllGameObjects[i]->translation, Math::sVector(.5, .5, 1), true, AllGameObjects[i]->collider);
 	}
 	
 
 	
 	gameCam = eae6320::Application::Camera::Camera(Math::cQuaternion(), Math::sVector(0, 0, 10));
-	eae6320::Collision::cCollider::CreateCollider(&gameCam.translation, Math::sVector(), true, gameCam.collider);
+	eae6320::Collision::cCollider::CreateCollider(&gameCam.translation, Math::sVector(.5,.5,1), true, gameCam.collider);
 	
-	gameCam.collider->ListenToCollision();
+	gameCam.collider->ListenToCollision(std::bind(&eae6320::cMyGame::ResolveCollision, this, std::placeholders::_1));
 
 	return Results::Success;
 }

@@ -85,5 +85,8 @@
     <Media Include="..\Content\Sounds\background.wav">
       <Filter>Resource Files\Sounds</Filter>
     </Media>
+    <Media Include="..\Content\Sounds\smb_mariodie.wav">
+      <Filter>Resource Files\Sounds</Filter>
+    </Media>
   </ItemGroup>
 </Project>

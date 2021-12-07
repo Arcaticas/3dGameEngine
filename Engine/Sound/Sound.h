@@ -24,6 +24,7 @@ namespace eae6320
 		//
 
 		cResult Play(const char* wavPath);
+		cResult PlaySync(const char* wavPath);
 		cResult PlayLoop(const char* wavPath);
 		cResult StopAllSound();
 	}

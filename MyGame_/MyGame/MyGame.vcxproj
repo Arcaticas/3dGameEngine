@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\Content\Sounds\background.wav" />
+    <Media Include="..\Content\Sounds\smb_mariodie.wav" />
     <Media Include="..\Content\Sounds\test.wav" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

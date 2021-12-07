@@ -26,7 +26,8 @@ return
 	sounds =
 	{
 		{path = "Sounds/test.wav"},
-		{path = "Sounds/background.wav"}
+		{path = "Sounds/background.wav"},
+		{path = "Sounds/smb_mariodie.wav"},
 	},
 	physics =
 	{
