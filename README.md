@@ -1,4 +1,3 @@
-Assignment 5
-Press SPACE to switch mesh
+Dodge
 WASD for camera controls
-Arrow keys for object movement
+Dont get hit
