@@ -61,6 +61,7 @@ namespace
 
 eae6320::cResult eae6320::Graphics::cShader::Load( const std::string& i_path, cShader*& o_shader, const eShaderType i_type )
 {
+
 	auto result = Results::Success;
 
 	Platform::sDataFromFile dataFromFile;
@@ -118,6 +119,7 @@ eae6320::cResult eae6320::Graphics::cShader::Load( const std::string& i_path, cS
 			return result;
 		}
 	}
+
 	// Initialize the platform-specific graphics API shader object
 	if ( !( result = newShader->Initialize( i_path, dataFromFile ) ) )
 	{
@@ -143,6 +145,7 @@ eae6320::Graphics::cShader::cShader( const eShaderType i_type )
 
 eae6320::Graphics::cShader::~cShader()
 {
+	
 	EAE6320_ASSERT( m_referenceCount == 0 );
 	s_shaderTracker.RemoveShader( this );
 	const auto result = CleanUp();
@@ -174,6 +177,7 @@ namespace
 
 	void cShaderTracker::RemoveShader( const eae6320::Graphics::cShader* const i_shader )
 	{
+
 		eae6320::Concurrency::cMutex::cScopeLock scopeLock( m_mutex );
 		const auto shaderCount = m_shaders.size();
 		for ( std::remove_const<decltype( shaderCount )>::type i = 0; i < shaderCount; ++i )

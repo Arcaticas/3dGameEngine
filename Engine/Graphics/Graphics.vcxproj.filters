@@ -18,9 +18,6 @@
     <ClCompile Include="OpenGL\cVertexFormat.gl.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGL\Graphics.gl.cpp">
-      <Filter>OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="OpenGL\sContext.gl.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
@@ -36,12 +33,31 @@
     <ClCompile Include="Direct3D\cVertexFormat.d3d.cpp">
       <Filter>Direct3D</Filter>
     </ClCompile>
-    <ClCompile Include="Direct3D\Graphics.d3d.cpp">
-      <Filter>Direct3D</Filter>
-    </ClCompile>
     <ClCompile Include="Direct3D\sContext.d3d.cpp">
       <Filter>Direct3D</Filter>
     </ClCompile>
+    <ClCompile Include="Direct3D\Geometry.d3d.cpp">
+      <Filter>Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp" />
+    <ClCompile Include="OpenGL\Geometry.gl.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\cEffect.gl.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Direct3D\cEffect.d3d.cpp">
+      <Filter>Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="cEffect.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Direct3D\cRenderer.d3d.cpp">
+      <Filter>Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\cRenderer.gl.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="cMeshParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windows\ExternalLibraries.win.h">
@@ -62,6 +78,10 @@
     <ClInclude Include="Direct3D\Includes.h">
       <Filter>Direct3D</Filter>
     </ClInclude>
+    <ClInclude Include="Geometry.h" />
+    <ClInclude Include="cEffect.h" />
+    <ClInclude Include="cRenderer.h" />
+    <ClInclude Include="cMeshParser.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Windows">

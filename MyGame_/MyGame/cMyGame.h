@@ -25,6 +25,7 @@ namespace eae6320
 	{
 		// Inherited Implementation
 		//=========================
+		void SubmitDataToBeRendered(const float i_elapsedSecondCount_systemTime, const float i_elapsedSecondCount_sinceLastSimulationUpdate);
 
 	private:
 
@@ -68,9 +69,12 @@ namespace eae6320
 		const WORD* GetSmallIconId() const final { static constexpr WORD iconId_small = IDI_EAEALIEN; return &iconId_small; }
 #endif
 
+		void ResolveCollision(eae6320::Collision::sCollision i_coll);
+
 		// Run
 		//----
-
+		void UpdateSimulationBasedOnTime(const float i_elapsedSecondCount_sinceLastUpdate);
+		void UpdateSimulationBasedOnInput();
 		void UpdateBasedOnInput() final;
 
 		// Initialize / Clean Up

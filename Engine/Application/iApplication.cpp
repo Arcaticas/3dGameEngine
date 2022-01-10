@@ -83,6 +83,7 @@ int eae6320::Application::iApplication::ParseEntryPointParametersAndRun( const s
 
 eae6320::cResult eae6320::Application::iApplication::Exit( const int i_exitCode )
 {
+	eae6320::Logging::OutputMessage("bye");
 	const auto result = Exit_platformSpecific( i_exitCode );
 	if ( result )
 	{
@@ -360,7 +361,14 @@ eae6320::cResult eae6320::Application::iApplication::Initialize_engine()
 			return result;
 		}
 	}
-
+	//Collision
+	{
+		if (!(result = eae6320::Collision::Initialize()))
+		{
+			EAE6320_ASSERTF(false, "Collsion fucked up init");
+			return result;
+		}
+	}
 	return result;
 }
 

@@ -45,7 +45,7 @@ eae6320::cResult eae6320::Graphics::cShader::Initialize( const std::string& i_pa
 		} );
 
 	EAE6320_ASSERT( ( m_type == eae6320::Graphics::eShaderType::Vertex ) || ( m_type == eae6320::Graphics::eShaderType::Fragment ) );
-	const auto shaderType = ( m_type == eae6320::Graphics::eShaderType::Vertex ) ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER;
+	GLenum shaderType = ( m_type == eae6320::Graphics::eShaderType::Vertex ) ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER;
 
 	// Verify that compiling shaders at run-time is supported
 	{
@@ -59,13 +59,15 @@ eae6320::cResult eae6320::Graphics::cShader::Initialize( const std::string& i_pa
 			return result;
 		}
 	}
-
+	
 	// Generate a shader
 	shaderId = glCreateShader( shaderType );
 	{
 		const auto errorCode = glGetError();
+
 		if ( errorCode != GL_NO_ERROR )
 		{
+
 			result = Results::Failure;
 			EAE6320_ASSERTF( false, reinterpret_cast<const char*>( gluErrorString( errorCode ) ) );
 			eae6320::Logging::OutputError( "OpenGL failed to get an unused shader ID: %s",
@@ -79,7 +81,9 @@ eae6320::cResult eae6320::Graphics::cShader::Initialize( const std::string& i_pa
 			eae6320::Logging::OutputError( "OpenGL failed to get an unused shader ID" );
 			return result;
 		}
+
 	}
+
 	// Set the source code into the shader
 	{
 		constexpr GLsizei shaderSourceCount = 1;

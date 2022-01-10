@@ -109,13 +109,15 @@ namespace eae6320
 #elif defined( EAE6320_PLATFORM_GL )
 			GLuint m_shaderId = 0;
 #endif
-			EAE6320_ASSETS_DECLAREREFERENCECOUNT();
 			const eShaderType m_type = eShaderType::Unknown;
+
+
 
 			// Implementation
 			//===============
 
 		private:
+			EAE6320_ASSETS_DECLAREREFERENCECOUNT();
 
 			// Initialization / Clean Up
 			//--------------------------
